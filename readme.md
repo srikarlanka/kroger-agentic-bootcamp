@@ -14,10 +14,12 @@ As a result, retailers struggle to create an effective in-store experience that 
 ## 🎯 Objective
 The objective of this lab is to design and develop an intelligent system that can analyze images of store shelves, identify opportunities for improvement, and provide actionable recommendations for optimizing product displays. By leveraging AI agents, this system aims to automate the process of analyzing customer behavior and market trends, enabling retailers to make data-driven decisions and stay ahead of the competition.
 
-Through this lab, participants will learn how to create a solution that can analyze visual data, integrate with external data sources, and generate insights that drive business value. The goal is to create a system that can be easily integrated into existing retail operations, providing a competitive edge in the market.
+The lab also helps in finding active recall notices on products and creating removal work orders for those products in a servicenow instance.
+
+Through this lab, participants will learn how to create a solution that can analyze visual data, integrate with external data sources, use MCP servers and generate insights that drive business value. The goal is to create a system that can be easily integrated into existing retail operations, providing a competitive edge in the market.
 
 ## 📈 Business Value
-The business value of this solution lies in its ability to drive sales growth, improve customer engagement, and increase operational efficiency. By optimizing product displays, retailers can increase the chances of customers finding and purchasing the products they need, leading to increased sales and revenue.
+The business value of this solution lies in its ability to drive sales growth, improve customer engagement, and increase operational efficiency. By optimizing product displays and acting quickly on recall issues, retailers can increase the chances of customers finding and purchasing the products they need without risks, leading to increased sales and revenue with reduced liabilities.
 
 Additionally, this solution can help retailers to better understand their customers' behavior and preferences, enabling them to make more informed decisions about product offerings, pricing, and promotions. By automating the process of analyzing customer behavior and market trends, retailers can also reduce the time and resources required to make these decisions, leading to increased operational efficiency and reduced costs.
 
