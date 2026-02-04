@@ -29,12 +29,13 @@
       - [Running the app](#running-the-app)
 
 ## Introduction
-This use case describes a scenario where a user can submit an image, i.e. a photograph that contains a shelf of products. Products are expected to be consumer products, that is, shoes, clothing, food, household supplies etc. The system will analyze the content of the image, i.e. identify the products shown, retrieve market trends for those products via web search, and finally develop recommendations and an action plan for how to reorganize the shelf to align with those market trends. 
+This use case describes a scenario where a user can submit an image, i.e. a photograph that contains a shelf of products. Products are expected to be consumer products, that is, shoes, clothing, food, household supplies etc. The system will analyze the content of the image, i.e. identify the products shown, retrieve market trends for those products via web search, and finally develop recommendations and an action plan for how to reorganize the shelf to align with those market trends. A user is also able to ask questions about active recall notices for products in an image or by product name and get the latest information about them from the internet and if required create a work order for removal of product from selves.
 
 The solution consists of several agents who are working together to address the problem at hand:
 - The `Internet Research Agent` 
 - The `Market Analyst Agent` 
 - The `Retail Market Agent` 
+- The `Ticket Manager Agent`
 
 Details about each agent and their purpose will be covered below. We will use the [IBM watsonx Orchestrate Agent Developer Kit (ADK)](https://developer.watson-orchestrate.ibm.com/) to create the solution.
 
@@ -65,7 +66,8 @@ You can decide to which level of detail you want to explore this use case. You c
 ## The tools
 As part of the solution, we will create two tools:
 1. a tool that utilizes a watsonx.ai vision model to create a description of the picture that was submitted by the user, and
-2. a tool that can search the web.
+2. a tool that can search the web powered by Tavily. This tool will be used to find the market trends.
+3. an mcp tool that can search the web powered by DuckDuckGo. This tool will be used to find the recall notices.
 
 ### Image to text tool
 This tool takes the URL of an image hosted on the Internet as input, and returns the description of that image. 
@@ -282,6 +284,9 @@ orchestrate tools import -k python -f ./usecases/retail/src/tools/web_search.py 
 Verify that the second tool was successfully imported by using the `orchestrate tools list` command.
 ![alt text](images/image2.png)
 
+
+> Note: We will add the MCP tool later via the UI with the Internet Research Agent.
+
 ## The agents
 
 We will create three agents to implement this use case:
@@ -324,7 +329,7 @@ Click on the `Create new agent` link at the bottom right corner of the page.
 
 In the next window, leave the `Create from scratch` option selected. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
 ```
-The Internet Research Agent assists with identifying market trends for products that can be found on images.
+The Internet Research Agent assists with identifying market trends for all products that can be found on images. If asked for recall information about products, it also assists with identifying active recall notices on products mentioned or found on images.
 ```
 ![alt text](images/image3.png)
 
@@ -347,26 +352,56 @@ Enter the following text into the `Instructions` field:
 ```
 
 Persona:
-    - Your purpose is to show me market trends for products based on an image of a product shelf. I will ask you to tell me about market trends, and you will analyze the image and do a search for market trends for the products in the image.
+    - Your purpose is to show market trends or active product recall notices based on products identified from an image of a product shelf or from a provided product name. You must decide which task the user is requesting before calling any tool. You must perform only one task per request either market trends or product recall. Use detailed language to describe the content.
 
   Context:
-    - You are used for market trend research based on image descriptions.
-    - Use detailed language to describe the content.
+    - You are used for market trend research based on image descriptions or for identifying active recall notices of products in an image or by name.
+    - Market trends and recall notices are mutually exclusive workflows.
+    - Use detailed language to describe the content for both tasks
 
-  Reasoning:
-    - Use the generate_description_from_image tool to create a description of a specific image. Pass in the URL of the image the description is requested for. 
-    - Use the web_search tool to find market trends for the content of the image. Summarize the content that was returned from the generate_description_from_image tool.
+ Key instructions for how and when the tools should be called:
+- Intent selection (required):
+If the user mentions recall, safety, defect, warning, FDA, or asks if a product is recalled, the intent is to find Product Recall Notices. Otherwise the intent is to find Market Trends.
+ - Image analysis (required when an image is provided): Use the generate_description_from_image tool to create a description of a specific image. Pass in the URL of the image the description is requested for. 
+ - Product Recall Notices: Only use the websearch_mcp:search_web tool to fetch information about any active recall notices for the product mentioned or list of "Product Names" returned from from the generate_description_from_image tool and also when the recall notices were issued from internet search. Important - Do not call web_search tool
+  - Market Trends: Only use the web_search tool to find market trends for the content of the image. Summarize the content that was returned from the generate_description_from_image tool. Important - Do not call websearch_mcp:search_web.
+
+Tool locking rule:
+- If Product Recall Notices is selected as intent, web_search is unavailable.
+- If Market Trends is selected as intent, websearch_mcp:search_web is unavailable.
+- Calling an unavailable tool makes the response invalid.
 ```
 
-Note how we divided the instructions into separate sections for persona, context and reasoning. The reasoning part contains instructions about the tools.
+Note how we divided the instructions into separate sections for persona, context and key instructions and tool locking. The the key instructions and tool locking part contains instructions about the tools - how and when to use them.
 
 ![alt text](images/image6.png)
 
+#### Let's Add the MCP Server to the Agent now
+- Click on Add tool
+  ![alt text](images/toolset.png)
+- Click on MCP Server
+  ![alt text](images/add_tools_options.png)
+- Click on Add MCP Server
+  ![alt text](images/add_mcp_1.png)
+- Select Local MCP Server and click on next
+  ![alt text](images/add_mcp_2.png)
+- Enter the following details for the MCP server and click on Import.
+> Server name - websearch_mcp
+> Description - This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
+> Install command - npx -y @guhcostan/web-search-mcp
+  ![alt text](images/mcp_details.png)
+- Once you add the MCP server you should see a tool for `websearch_mcp:fetch_page` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:fetch_page`. Select it and click on add to agent.
+  ![alt text](images/add_tools_list.png)
+  ![alt text](images/tools_ira.png)
 The `Show agent` switch, at the bottom of the agent configuration page, controls whether or not the agent will be visible on the main watsonx Orchestrate page. We will leave this on for now, but eventually we will switch it off, because we want users to only use the supervisory agent (which we will create below).
 
 We can now test our new agent right here in this page, using the `Preview` window. Let's test if both tools are properly invoked if we give the agent the right task. For example, we can give the agent a URL with the image, and then ask it to tell us about related market trends, like this:
 ```
 Please look at the image at https://i.imgur.com/qfiugNJ.jpeg, and give me current market trends based on the products shown in the image.
+```
+You can also test the agent for recalls with the following:
+```
+Check if there is a recall notice on Spring & Mulberry chocolates?
 ```
 
 ![alt text](images/image7.png)
