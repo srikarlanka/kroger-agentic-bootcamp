@@ -47,7 +47,7 @@ Details about each agent and their purpose will be covered below. We will use th
   
 **Participants**:
 - Validate that you have access to the right environment for this lab.
-- Complete the [environment-setup](../../environment-setup/retail.md) guide to set up the ADK environment.
+- Complete the [environment-setup](retail_env_setup.md) guide to set up the ADK environment.
 - Validate that you have access to a credentials file that your instructor will share with you before starting the labs.
 - Familiarity with AI agent concepts (e.g., instructions, tools, collaborators...)
 - Setup IBM BOB IDE on your local.
