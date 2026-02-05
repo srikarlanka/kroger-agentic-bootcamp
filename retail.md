@@ -50,6 +50,7 @@ Details about each agent and their purpose will be covered below. We will use th
 - Complete the [environment-setup](../../environment-setup/retail.md) guide to set up the ADK environment.
 - Validate that you have access to a credentials file that your instructor will share with you before starting the labs.
 - Familiarity with AI agent concepts (e.g., instructions, tools, collaborators...)
+- Setup IBM BOB IDE on your local.
 
 ## watsonx Orchestrate ADK
 As mentioned above, we will use the ADK to develop and test the solution. The ADK consists of the following elements:
@@ -360,11 +361,11 @@ Persona:
     - Use detailed language to describe the content for both tasks
 
  Key instructions for how and when the tools should be called:
-- Intent selection (required):
-If the user mentions recall, safety, defect, warning, FDA, or asks if a product is recalled, the intent is to find Product Recall Notices. Otherwise the intent is to find Market Trends.
- - Image analysis (required when an image is provided): Use the generate_description_from_image tool to create a description of a specific image. Pass in the URL of the image the description is requested for. 
- - Product Recall Notices: Only use the websearch_mcp:search_web tool to fetch information about any active recall notices for the product mentioned or list of "Product Names" returned from from the generate_description_from_image tool and also when the recall notices were issued from internet search. Important - Do not call web_search tool
-  - Market Trends: Only use the web_search tool to find market trends for the content of the image. Summarize the content that was returned from the generate_description_from_image tool. Important - Do not call websearch_mcp:search_web.
+   - Intent selection (required):
+     If the user mentions recall, safety, defect, warning, FDA, or asks if a product is recalled, the intent is to find Product Recall Notices. Otherwise the intent is to find Market Trends.
+   - Image analysis (required when an image is provided): Use the generate_description_from_image tool to create a description of a specific image. Pass in the URL of the image the description is requested for. 
+   - Product Recall Notices: Only use the websearch_mcp:search_web tool to fetch information about any active recall notices for the product mentioned or list of "Product Names" returned from from the generate_description_from_image tool and also when the recall notices were issued from internet search. Important - Do not call web_search tool
+   - Market Trends: Only use the web_search tool to find market trends for the content of the image. Summarize the content that was returned from the generate_description_from_image tool. Important - Do not call websearch_mcp:search_web.
 
 Tool locking rule:
 - If Product Recall Notices is selected as intent, web_search is unavailable.
@@ -387,7 +388,9 @@ Note how we divided the instructions into separate sections for persona, context
   ![alt text](images/add_mcp_2.png)
 - Enter the following details for the MCP server and click on Import.
 > Server name - websearch_mcp
+> 
 > Description - This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
+> 
 > Install command - npx -y @guhcostan/web-search-mcp
   ![alt text](images/mcp_details.png)
 - Once you add the MCP server you should see a tool for `websearch_mcp:fetch_page` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:fetch_page`. Select it and click on add to agent.
@@ -421,9 +424,32 @@ orchestrate agents export -n internet_research_agent_9292aQ -k native --agent-on
 ```
 Feel free to study the content of the created YAML file. It has all the same content as what we typed into the Agent Builder UI before. Another interesting detail is the `llm` section. It shows which model is being used by this agent. If the agent you are creating does not perform to your satisfaction, you may want to try a different model.
 
+### The Ticket Manager Agent
+Next let's create an agent from existing catalog agents within watsonx orchestrate. 
+Go back to the Manage Agents page. And click on the 'Create Agent +' button.
+![alt text](images/add_new_agent.png)
+
+Navigate to the `Start with Template` tab. This will open the catalog of existing agents and tools within watsonx orchestrate. We will be using the pre-made ServiceNow agent to create this new Ticket Manager agent.
+![alt text](images/catalog.png)
+
+Search for ServiceNow in the search bar and scroll down to the Ticket Manager Agent
+![alt text](images/search_sn.png)
+
+Click on the Ticket Manager Agent and then click on Use as Template. These agents are ready to use agents that can also serve as templates if you need specific functionality within your connections, apps etc. For the purpose of this lab, we will not be editing this agent at all, however depending on your use case you can edit every single detail within this agent. 
+![alt text](images/template.png)
+
+Click on Deploy and scroll down to Connections. Click on the edit pencil icon next to the service not connection if the connection status shows as not connected.
+![alt text](images/deploy_conn.png)
+
+Choose Oauth2 for Authorization and member credentials and enter your details for the connection. Click on save changes and now you should be able to deploy your agent.
+![alt text](images/conn_details.png)
+
+Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
+
+
 ### The Market Analyst Agent
 
-Next we will define the `Market Analyst Agent`. Unlike in the previous example, we will simply import [a YAML file](./src/agents/market_analyst_agent.yaml) that includes all the settings for this agent. Let's take a look at the content of that file:
+Next we will define the `Market Analyst Agent`. Unlike in the previous examples, we will simply import [a YAML file](./src/agents/market_analyst_agent.yaml) that includes all the settings for this agent. Let's take a look at the content of that file:
 
 ```
 spec_version: v1
@@ -468,21 +494,24 @@ style: default
 name: retail_market_agent
 llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
 description: >
-  The Retail Market Agent assists with identifying market trends for products that can be found on images, and deriving recommendations for rearrangement of products based on those trends.
+    The Retail Market Agent assists with identifying market trends for products that can be found on images, and deriving recommendations for rearrangement of products based on those trends. It also let's you know if there are any recall orders on a product or on any of the products in the image provided.
 instructions: >
   Persona:
-    - Your purpose is to show me market trends for products based on an image, and make recommendations for the rearrangement of those products. I will give you an image with product on it, and you will analyze the image, do a search for market trends for the products in the image, and give me a set of recommendations for the potential rearrangement of the products on the shelf.
+  - Your purpose is to show me market trends for products based on an image, and make recommendations for the rearrangement of those products. I will give you an image with product on it, and you will analyze the image, do a search for market trends for the products in the image, and give me a set of recommendations for the potential rearrangement of the products on the shelf. I may also give you the name of a product to find if there is a recall order on it and you need to inform me of any active recall notices on the product and when it was issued and ask and create a ServiceNow Ticket for the recall notice.
 
   Context:
-    - You are used for market trend research and analysis based on image descriptions.
-    - Use detailed language to describe the trends, recommendations and suggested actions.
+  - You are used for market trend research and analysis based on image descriptions.
+  - You also get recall notice information and create tickets for the recall based on product names.
+  - Use detailed language to describe the trends, recommendations and suggested actions for market trend research and active recall notice and issuance date for recall notices.
 
-  Reasoning:
-    - Use the internet_research_agent agent to retrieve market trends based on an image reference.
-    - Use the market_analysis_agent agent to develop suggestions for rearrangement based on market trends and the current arrangement of products on the shelf.
+  Key Instructions on how to use tools and agents available to you:
+  - Use the internet_research_agent agent and retrieve active recall notices on products from internet search based for the product name or image provided. After providing recall information, ask the user if they want to create a ServiceNow ticket for the product recall.
+  - Use the internet_research_agent agent to retrieve market trends based on an image reference.
+  - Use the market_analysis_agent agent to develop suggestions for rearrangement based on market trends and the current arrangement of products on the shelf.
+  - If the user wants to create a ticket, Use the Ticket Manger agent (ticket_manager tool) to create a new ticket. Pass an input_message containing short description: ... and description: ... to the ticket_manager tool. Once the ticket is created, let the user know that a recall order has been placed on ServiceNow. 
 ```
 
-Note how the 'Reasoning' section contains details about how to use other agents, depending on the task at hand. We will add the related agents using the UI below.
+Note how the 'Key Instruction' section contains details about how to use other agents, depending on the task at hand. We will add the related agents using the UI below.
 
 We import this agent just like the previous one:
 ```
@@ -501,13 +530,13 @@ In the following dialog, select `Add from local instance`.
 
 ![alt text](images/image40.png)
 
-In the following page, select the two agents we defined earlier as collaborators, by checking the box next to them. Then click on `Add to agent`.
+In the following page, select the three agents we defined earlier as collaborators, by checking the box next to them. Then click on `Add to agent`.
 
-![alt text](images/image41.png)
+![alt text](images/collab_agents.png)
 
-See how both agents have been added to the retail_market_agent. Remember that the instructions tell this agent when to involve them in addressing a task.
+See how these agents have been added to the retail_market_agent. Remember that the instructions tell this agent when to involve them in addressing a task.
 
-![alt text](images/image42.png)
+![alt text](images/collab_agents_2.png)
 
 ## Final test and Summary
 
@@ -538,6 +567,21 @@ Please look at the image at https://i.imgur.com/WzMC1LJ.png, and give me current
 ```
 How should the products shown in this image (https://i.imgur.com/Pb2Ywxv.jpeg) be rearranged given current market trends?
 ```
+Let's do a two agent invoking flow:
+```
+Check if there is a recall notice on Spring & Mulberry chocolates?
+```
+Followed by (in response to "Would you like to create a ServiceNow ticket for the Spring & Mulberry chocolates recall?")
+```
+yes
+```
+Response to What priority would you like for the ticket?
+```
+1
+```
+This should have created a service now ticket for the recall notice in the instance you connected with the ticket manager.
+
+![alt text](images/chat_final.png)
 
 Feel free to explore further, by changing descriptions and instructions, to see what the impact on the solution is.
 
