@@ -1,11 +1,7 @@
 # Setup for the Retail use case lab
 - [Introduction](#introduction)
-- [Virtual machine option](#virtual-machine-option)
 - [Lab materials](#lab-materials)
   - [Local machine](#local-machine)
-    - [VS Code](#vs-code)
-  - [Virtual machine](#virtual-machine)
-    - [VS Code](#vs-code-1)
 - [Environments](#environments)
   - [watsonx.ai](#watsonxai)
     - [The .env file](#the-env-file)
@@ -15,7 +11,6 @@
     - [Virtual machine](#virtual-machine-1)
   - [watsonx Orchestrate ADK](#watsonx-orchestrate-adk)
     - [Local machine](#local-machine-2)
-    - [Virtual machine](#virtual-machine-2)
   - [watsonx Orchestrate](#watsonx-orchestrate)
   - [Tavily](#tavily)
 
