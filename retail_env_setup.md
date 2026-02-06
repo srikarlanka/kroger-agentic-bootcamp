@@ -21,7 +21,7 @@
 
 ## Introduction
 
-This document contains the documentation for the setup of the environment to prepare for the step-by-step walkthrough of the [Retail use case](../usecases/retail/).
+This document contains the documentation for the setup of the environment to prepare for the step-by-step walkthrough of the Retail use case.
 
 The use case takes you through the creation of tools and agents using the [IBM watsonx Orchestrate Agent Development Kit (ADK)](https://developer.watson-orchestrate.ibm.com/). This toolkit can be installed on a local machine, and accessed through a CLI.
 
