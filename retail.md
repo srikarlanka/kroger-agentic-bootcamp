@@ -40,10 +40,6 @@ The solution consists of several agents who are working together to address the 
 Details about each agent and their purpose will be covered below. We will use the [IBM watsonx Orchestrate Agent Developer Kit (ADK)](https://developer.watson-orchestrate.ibm.com/) to create the solution.
 
 ### Pre-requisites
-
-**Instructors**: 
-- Check the corresponding [Instructor's guide](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/tree/main/usecase-setup/retail) to set up all environments and backend services.
-  > NOTE: the `main` branch contains the latest release code. If you want to use a previous release, download the same [release](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/releases) that will be used for participants' lab. 
   
 **Participants**:
 - Validate that you have access to the right environment for this lab.
