@@ -69,6 +69,9 @@ In this case, you can choose any folder as the base for the material. You should
 
 ![alt text](./assets/image20.png)
 
+### Windows Users
+If you are running locally on a Windows machine, please install the appropriate version: https://git-scm.com/install/windows. This will be used to run bash scripts needed in the lab. 
+
 #### VS Code
 We recommend you use VS Code to view the materials and edit files as needed. Assuming you have the command line starter installed, you should be able to start VS Code right from the command line by entering `code .`.
 
