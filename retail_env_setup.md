@@ -134,6 +134,7 @@ Copy this `URL` and save it in your .env
 
 ![alt text](./assets/ibm-cloud-orchestrate-url.png)
 
+![alt text](./assets/env-orchestrate-url.png)
 
 ### watsonx Orchestrate ADK
 
