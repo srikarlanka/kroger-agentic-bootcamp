@@ -141,7 +141,7 @@ The overall flow of the tool is like this:
 - use construct_message to create HumanMessage instance
 - call `model.invoke()` to return description of image content
 
-Note that the main entry point for the tool is the `generate_description_from_image()` function. This is indicated by the `@tool~ annotation that prefixes the function declaration, paired with an indication of the `Connection` that is being used:
+Note that the main entry point for the tool is the `generate_description_from_image()` function. This is indicated by the `@tool`~ annotation that prefixes the function declaration, paired with an indication of the `Connection` that is being used:
 ```
 @tool(
         {"app_id": CONNECTION_WATSONX_AI, "type": ConnectionType.KEY_VALUE}
