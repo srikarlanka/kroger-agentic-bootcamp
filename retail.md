@@ -285,32 +285,18 @@ We will create three agents to implement this use case:
 
 Each agent will be defined inside a YAML file that we can easily import into watsonx Orchestrate for testing, but we will also take you through the UI-based Agent Builder tool.
 
-### Starting the Chat UI
-
-Before we can start defining our first agent via the UI, we have to import at least one agent into the environment via YAML. The reason being that without having an agent defined, the UI will not start. We could simply import one of the agents discussed below, but since we want to take you through the UI to define those, we will import a sample agent here to allow the UI to start. 
-
-The sample agent offers insight into IBM, and it uses a "knowledge base" consisting of a number of PDF files as its source. First, we need to import this new knowledge base. Enter the following on the command line:
-```
-orchestrate knowledge-bases import -f ./src/ibm_knowledge/knowledge_base/ibm_knowledge_base.yaml
-```
-
-After creating the knowledge base, we can import the actual agent:
-```
-orchestrate agents import -f ./src/ibm_knowledge/agents/ibm_agent.yaml
-```
-
-You can try out this agent later, for now we will leave it alone and continue with our retail use case.
+> We will also be using one catalog Agent that we will not be creating but rather importing.
 
 ### The Internet Research Agent
 
 This agent will leverage both tools we defined and imported earlier to help answer requests. The main intended use of this agent is to take an image of a product shelf as input, and return both a description of the displayed products as well as related market trends to the user. The first part uses the image to text tool, the second part uses the web search tool.
 
 In this case, we will define this agent interactively in the UI of watsonx Orchestrate. It offers an easy-to-use interface to enter all the relevant fields.
-Start out by making sure the local UI server is started, if you haven't already done so:
-```
-orchestrate chat start --env-file .env
-```
 
+Click on the following link and open `Watson Orchestrate-itz`
+```
+https://cloud.ibm.com/resources
+```
 This will open the browser window with the watsonx Orchestrate homepage.
 ![alt text](images/image1.png)
 
