@@ -15,7 +15,6 @@
       - [Importing the tool](#importing-the-tool)
     - [Web search tool](#web-search-tool)
   - [The agents](#the-agents)
-    - [Starting the Chat UI](#starting-the-chat-ui)
     - [The Internet Research Agent](#the-internet-research-agent)
     - [The Market Analyst Agent](#the-market-analyst-agent)
     - [The Retail Market Agent](#the-retail-market-agent)
