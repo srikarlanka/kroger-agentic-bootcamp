@@ -608,11 +608,24 @@ WO_DEVELOPER_EDITION_SOURCE=myibm
 WO_ENTITLEMENT_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3NjQ3MTMzMzAsImp0aSI6IjI1YTZlODUzMDk4NjQ4M2RiMmUyYWRmNDRlODQ4ZDQ3In0.AlW8O7stijF_AeR6_VHQrkzl3R1TEnX8740-SRiO8Hc
 ```
 
-Run the following commmand:
+Run the following commmand to get watsonx Orchestrate running locally:
 ```
 orchestrate server start -e .env
 ```
 > You may have to run the above command twice!
+
+Then activate the local env in the ADK with:
+```
+orchestrate env activate local
+```
+
+Run the following commands to reimport the tools and connections.
+```
+chmod +x ./src/import-all.sh
+chmod +x ./src/set-credentials.sh
+./src/import-all.sh
+./src/set-credentials.sh
+```
 
 ### Code Walkthrough
 
