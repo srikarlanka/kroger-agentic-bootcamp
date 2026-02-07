@@ -278,14 +278,14 @@ Verify that the second tool was successfully imported by using the `orchestrate 
 
 ## The agents
 
-We will create three agents to implement this use case:
+We will create four agents to implement this use case:
 - The Internet Research Agent handles the interpretation of any images that are submitted by the user, and runs web searches to identify market trends related to the relevant products.
 - The Market Analyst Agent will analyze market trends and develop related recommendations and create an action plan.
 - The Retail Market Agent is the supervisory agent that interacts with the user and collaborates with other agents, i.e. the two agents listed above, to create the final answer for the user.
+- The Ticket Manager Agent is the catalog agent that we are using to tie everything back into ServiceNow.
 
 Each agent will be defined inside a YAML file that we can easily import into watsonx Orchestrate for testing, but we will also take you through the UI-based Agent Builder tool.
 
-> We will also be using one catalog Agent that we will not be creating but rather importing.
 
 ### The Internet Research Agent
 
@@ -294,13 +294,14 @@ This agent will leverage both tools we defined and imported earlier to help answ
 In this case, we will define this agent interactively in the UI of watsonx Orchestrate. It offers an easy-to-use interface to enter all the relevant fields.
 
 Click on the following link and open `Watson Orchestrate-itz`
-```
-https://cloud.ibm.com/resources
-```
-This will open the browser window with the watsonx Orchestrate homepage.
+
+[IBM Cloud Resources Link](https://cloud.ibm.com/resources)
+
+This will open the browser window with a Launch watsonx Orchestrate.
+
 ![alt text](images/image1.png)
 
-Click on the `Create new agent` link at the bottom right corner of the page.
+Click on the Hamburger menu near the top left of the screen and then `Build`.
 
 In the next window, leave the `Create from scratch` option selected. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
 ```
@@ -559,137 +560,10 @@ This should have created a service now ticket for the recall notice in the insta
 
 Feel free to explore further, by changing descriptions and instructions, to see what the impact on the solution is.
 
-## (Optional) Uploading the solution to a watsonx Orchestrate SaaS instance
-The idea behind the ADK is to allow developers to create agentic solutions on their laptops and test them in a local environment. Once tests have completed, the solution can be pushed into a separate instance, including one that runs in the cloud. It uses the exact same CLI commands for doing so. And since we stored all of the agent and tool definitions in YAML files, we can run the entire process via the command line.
 
-### Remote environment configuration
-As a first step, you need to create a configuration for the remote environment. To a remote SaaS environment, you need to know its endpoint and its API key. You can find both on the resource page for your watsonx Orchestrate instance in the IBM Cloud console.
+### Additional Testing
 
-To find the endpoint URL, open the watsonx Orchestrate console and click on the profile button at the top right corner of the page. Then click on `Settings`:
-
-![alt text](images/image17.png)
-
-On the settings page, click on the `API details` tab.
-
-![alt text](images/image19.png)
-
-There you can copy the Service instance URL to the clipboard by clicking the icon next to the URL, as shown below:
-![alt text](images/image18.png)
-
-Now switch back to the command line and enter the following command on the command line:
-```
-export WXO_ENDPOINT=[copy the URL from the clipboard in here]
-orchestrate env add -n wxo-saas -u ${WXO_ENDPOINT}
-```
-You should see a confirmation message like this:
-```
-[INFO] - Environment 'wxo-saas' has been created
-```
-
-If you run the command `orchestrate env list`, it will show you two environments, the local one and the remote we just added, with the local labeled as "active". Before we activate the remote environment, we have to copy the instance's API key.
-Back on the API details tab of the Settings page, it will most likely not list any API keys (assuming this is a 'fresh' instance), but there is a button labeled `Generate API key`.
-
-![alt text](images/image20.png)
-
-Click on that button to generate a key. This will redirect you to the IBM Cloud IAM API keys page. You may see one or more keys already generated (as shown on the picture below), but go ahead and create a new one for this exercise, by clicking on the `Create` button.
-
-![alt text](images/image21.png)
-
-Give the new key a descriptive name and click on `Create` again.
-
-![alt text](images/image22.png)
-
-Make sure you copy the new key's value to the clipboard. 
-
-![alt text](images/image23.png)
-
-You may also want to copy it into an environment variable, in case you need to use it again later. You won't be able to look it up in the IBM Cloud IAM console after closing the window showing the `API key successfully created` message.
-```
-export myAPIkey=[copy the API key from the clipboard in here]
-```
-
-To activate the remote environment, simply enter 
-```
-orchestrate env activate wxo-saas
-```
-It will now ask you for the API key of your remote instance. You should still have it in the clipboard and can simply paste it here.
-
-After entering the key and hitting Enter, you should get a message saying `[INFO] - Environment 'wxo-saas' is now active`.
-
-A simple way to verify you can connect with the remote instance is to ask for any agents or tools it might contain, by using the `orchestrate agents list` and `orchestrate tools list` commands. In the example screenshot below, it shows as empty, but in your case it may list agents you created in a previous use case.
-
-![alt text](images/image24.png)
-
-### Importing connections, tools and agents
-Now we are ready to import the connections, tools and agents into the remote environment, reusing the definitions we created for the local instance. For convenience, you can find the commands in a [script](./src/import-all.sh) that runs the required steps:
-
-```
-#!/usr/bin/env bash
-set -x
-
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-for connection in tavily.yaml watsonxai.yaml; do
-  orchestrate connections import -f ${SCRIPT_DIR}/connections/${connection}
-done
-
-for python_tool in web_search.py generate_description_from_image.py; do
-  orchestrate tools import -k python -f ${SCRIPT_DIR}/tools/${python_tool} -r ${SCRIPT_DIR}/tools/requirements.txt -a watsonxai -a tavily
-done
-
-for agent in internet_research_agent.yaml market_analyst_agent.yaml retail_market_agent.yaml; do
-  orchestrate agents import -f ${SCRIPT_DIR}/agents/${agent} -a tavily -a watsonxai
-done
-```
-
-So go ahead and enter `./usecases/retail/src/import-all.sh` on the command line.
-
-![alt text](images/image25.png)
-
-Now we you enter, for example, `orchestrate agents list`, you should see the agents listed.
-
-![alt text](images/image26.png)
-
-Before we can start testing, we also need to set the credentials in the connections, so that the tools can retrieve the correct API keys etc. We have automated this part into a separate [script](./src/set-credentials.sh):
-```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
-source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a watsonxai --env "${TARGET_ENV}" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
-orchestrate connections set-credentials -a tavily --env "${TARGET_ENV}" -e "apikey=${TAVILY_API_KEY}"
-```
-Remember that the values for the credentials are retrieved from the .env file. This script also has a parameter controlling which environment is configured with values. As we mentioned above, the are two environments defined in each `Connection` we use, namely `draft` and `live`. The `live` environment was ignored when running against a local ADK instance, but we need it here. The `live` environment is used when running an agent that is in `deployed` state. We will deploy the agents below, but here, we just set the same values in both the draft and the live environment.
-
-Enter the following on the command line.
-```
-./usecases/retail/src/set-credentials.sh draft
-./usecases/retail/src/set-credentials.sh live
-```
-
-![alt text](images/image30.png)
-
-Let's test the agents in the SaaS instance now, to verify they work as expected. Open the watsonx Orchestrate console in your browser. You should still have a tab with the console open, from when we captured the service instance URL above. The easiest way to get back to the homepage is to simply click on `IBM watsons Orchestrate` in the top left of the window.
-
-![alt text](images/image27.png)
-
-On the homepage, you will not see the new agents available for chat. The reason is that in order to become visible there, we have to "deploy" the agents. Click on the `Manage agents` link at the bottom left of the page.
-
-![alt text](images/image28.png)
-
-All three agents shoud be listed there. Let's start with the internet_research_agent. Just click on its tile to open the details view.
-
-![alt text](images/image29.png)
-
-We can test this agent right here in the preview, just like we did before when running locally. You can test it by entering, for example, the following text into the Preview tet field:
+We can test this agent right here in the preview, just like we did before when running locally. You can test it by entering, for example, the following text into the Preview text field:
 ```
 Can you show me market trends for the products shown in the image at https://i.imgur.com/WzMC1LJ.png
 ```
@@ -746,7 +620,7 @@ The example scenario we will walk through here is one where a new photo of a pro
 
  > Note: the code for the app is in the file [image_listener.py](./src/app/image_listener.py).
 
-To implement the headless agent, we need an application that calls the Retail Market Agent using the watsonx Orchestrate REST API, and specifically, the "Caht with Agents" API. You can see the spec for this API [here](https://developer.watson-orchestrate.ibm.com/apis/orchestrate-agent/chat-with-agents). 
+To implement the headless agent, we need an application that calls the Retail Market Agent using the watsonx Orchestrate REST API, and specifically, the "Chat with Agents" API. You can see the spec for this API [here](https://developer.watson-orchestrate.ibm.com/apis/orchestrate-agent/chat-with-agents). 
 
 For our app, we need three parameters:
 
