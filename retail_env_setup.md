@@ -174,4 +174,4 @@ Click on the Plus sign as shown in the image above. Name your key "default". Aft
 
 To complete the setup for this use case, we will add the Tavily API key to the .env file as before, with an editor of your choice. Add your key to the `TAVILY_API_KEY` variable.
 
-This is it! You are now ready to proceed to the [detailed lab instructions](../usecases/retail/retail.md).
+This is it! You are now ready to proceed to the [detailed lab instructions](./retail.md).
