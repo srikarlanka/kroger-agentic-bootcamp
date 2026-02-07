@@ -586,52 +586,15 @@ Feel free to explore further, by changing descriptions and instructions, to see 
 
 ### Additional Testing
 
-We can test this agent right here in the preview, just like we did before when running locally. You can test it by entering, for example, the following text into the Preview text field:
+We can continue to test with the following: 
 ```
 Can you show me market trends for the products shown in the image at https://i.imgur.com/WzMC1LJ.png
 ```
 
 ![alt text](images/image31.png)
 
-Assuming the results are satisfactory, let's deploy the agent by clicking on the `Deploy` button at the top right of the page.
 
-![alt text](images/image32.png)
-
-Note how in the following screen, the connections we are using are listed here. Click on `Deploy` again.
-
-![alt text](images/image43.png)
-
-Once the agent is deployed, go back to the `Manage agents` page by clicking on the associated link at the top of the page.
-
-![alt text](images/image33.png)
-
-Now repeat the same exercise with the `market_analyst_agent` and the `retail_market_agent`. However, for the `retail_market_agent`, you also need to add the two agents as collaborators, just like you did when using the ADK earlier.
-
-We won't show detailed steps and screenshots here, because we are confident that by now, you are an expert in navigating the tool. 
-
-![alt text](images/image44.png)
-
-Once you have deployed all three agents, they should all show the `Live` icon.
-
-![alt text](images/image34.png)
-
-Finally, let's go back to the homepage and run the solution there. On the homepage, make sure you have selected the `retail_market_agent` in the Agents drop-down list, since that is the agent we want the user to chat with.
-
-![alt text](images/image35.png)
-
-Remember that you control which agents show up in this list by checking or unchecking the `Show agent` flag in the agent details page.
-
-![alt text](images/image36.png)
-
-In the main chat window, let's enter the following prompt to see if the agents are working as expected. We'll simply reuse a prompt from our tests on the local instance.
-
-```
-Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
-```
-
-![alt text](images/image37.png)
-
-Feel free to run more experiments, switching the target environments the CLI is using between `local` and `wxo-saas` to see if the two environments behave differently. 
+Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests. 
 
 ## (Optional) Headless Agent
 
