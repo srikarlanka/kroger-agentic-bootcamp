@@ -87,7 +87,9 @@ The last step here is that we need to capture the Space GUID. You can find the G
 
 #### The .env file
 
-The Space GUID, as well as a number of other environment variables, goes into a file called `.env`. This file should exist in **the root folder** of where you extracted the content of the repo that was provided to you by your instructor (this file is also in that repo, of course), in other words, it should be at the same level as the `usecases` or `environment-setup` subfolders.
+The Space GUID, as well as a number of other environment variables, goes into a file called `.env`. This file should exist in **the root folder** of where you extracted the content of the repo that was provided to you by your instructor (this file is also in that repo, of course), in other words, it should be at the same level as the `usecases` or `environment-setup` subfolders. 
+
+Start by copying the `.env.sample` provided to you into a .env file.
 
 - If you are running this on your local machine, you should have already unzipped the file with materials into a folder of your choosing, as described [above](#local-machine). Create an empty .env file and make sure you place the `.env` file in that same folder. 
 
@@ -123,18 +125,15 @@ The API key also goes into the .env file, add it to the `WATSONX_APIKEY` variabl
 
 ![alt text](assets/image40.png)
 
-[Optional]
----------------------------- START ----------------------------
-### Entitlement key
-The watsonx Orchestrate Developer Edition, which you will use extensively in this lab, consists of a number of container images that are downloaded from the IBM registry during install. To authenticate with this registry, you need an "entitlement key".
+#### WXO Service URL
+Finally, you will need a url associated to your watsonx Orchestrate instance. Start by navigating to [IBM Cloud resources](https://cloud.ibm.com/resources), then click on the AI / Machine Learning drop down and select Orchestrate. 
 
-#### Local machine
-Your instructor will provide the entitlement key for you.
-You can add the key to your .env file via editor, to the `WO_ENTITLEMENT_KEY` variable.
+![alt text](./assets/ibm-cloud-resources-orchestrate.png)
 
-Also, make sure you have the `WO_DEVELOPER_EDITION_SKIP` variable set to `false`.
+Copy this `URL` and save it in your .env
 
----------------------------- END ----------------------------
+![alt text](./assets/ibm-cloud-orchestrate-url.png)
+
 
 ### watsonx Orchestrate ADK
 
