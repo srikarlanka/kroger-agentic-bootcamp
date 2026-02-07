@@ -303,11 +303,13 @@ Click on the following link and open `Watson Orchestrate-itz`
 
 [IBM Cloud Resources Link](https://cloud.ibm.com/resources)
 
-This will open the browser window with a Launch watsonx Orchestrate.
+On the page with all your resources, you can find your watsonx Orchestrate instance in the `AI / Machine Learning` section. The instance will have `watsonx Orchestrate in the Product column. Click on the name of the instance.
 
-![alt text](images/image1.png)
+![alt text](./assets/ibm-cloud-resources-orchestrate.png)
 
-Click on the Hamburger menu near the top left of the screen and then `Build`.
+Then click on the `Launch watsonx Orchestrate` button.
+
+Now click on the Hamburger menu near the top left of the screen and then `Build`.
 
 In the next window, leave the `Create from scratch` option selected. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
 ```
