@@ -256,9 +256,18 @@ source .env
 orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAVILY_API_KEY}"
 ```
 
-The final step is to import the tool:
+The final steps are to import the `live` configurations of the connections and import the tool:
+
+Configuring the live script:
 ```
-orchestrate tools import -k python -f ./src/tools/web_search.py -r ./usecases/retail/src/tools/requirements.txt -a tavily
+chmod +x ./src/tools/set-credentials.sh
+./src/tools/set-credentials.sh
+```
+
+
+importing the tool
+```
+orchestrate tools import -k python -f ./src/tools/web_search.py -r ./src/tools/requirements.txt -a tavily
 ```
 
 Verify that the second tool was successfully imported by using the `orchestrate tools list` command.
