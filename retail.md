@@ -267,7 +267,7 @@ chmod +x ./src/tools/set-credentials.sh
 
 importing the tool
 ```
-orchestrate tools import -k python -f ./src/tools/web_search.py -r ./src/tools/requirements.txt -a tavily
+orchestrate tools import -k python -f ./src/web_search.py -r ./src/tools/requirements.txt -a tavily
 ```
 
 Verify that the second tool was successfully imported by using the `orchestrate tools list` command.
