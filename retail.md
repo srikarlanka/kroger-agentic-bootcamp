@@ -291,12 +291,12 @@ Before we can start defining our first agent via the UI, we have to import at le
 
 The sample agent offers insight into IBM, and it uses a "knowledge base" consisting of a number of PDF files as its source. First, we need to import this new knowledge base. Enter the following on the command line:
 ```
-orchestrate knowledge-bases import -f ./usecases/retail/src/ibm_knowledge/knowledge_base/ibm_knowledge_base.yaml
+orchestrate knowledge-bases import -f ./src/ibm_knowledge/knowledge_base/ibm_knowledge_base.yaml
 ```
 
 After creating the knowledge base, we can import the actual agent:
 ```
-orchestrate agents import -f ./usecases/retail/src/ibm_knowledge/agents/ibm_agent.yaml
+orchestrate agents import -f ./src/ibm_knowledge/agents/ibm_agent.yaml
 ```
 
 You can try out this agent later, for now we will leave it alone and continue with our retail use case.
