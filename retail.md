@@ -610,7 +610,7 @@ WO_ENTITLEMENT_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0
 
 Run the following commmand:
 ```
-orchesrate server start -e .env
+orchestrate server start -e .env
 ```
 
 ### Code Walkthrough
