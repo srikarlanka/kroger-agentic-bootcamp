@@ -513,7 +513,7 @@ Note how the 'Key Instruction' section contains details about how to use other a
 
 We import this agent just like the previous one:
 ```
-orchestrate agents import -f ./usecases/retail/src/agents/retail_market_agent.yaml
+orchestrate agents import -f ./src/agents/retail_market_agent.yaml
 ```
 
 Back in the `Manage agents` view in the UI, you can reload the page and see the new agent listed next to the other ones.
