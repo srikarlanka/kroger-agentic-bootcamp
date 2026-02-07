@@ -71,7 +71,7 @@ This tool takes the URL of an image hosted on the Internet as input, and returns
 
 > Why a URL? Initially this was a work around, but now you would just have to declare the input type `Bytes` and you would get a widget to upload and download files as needed. 
 
-The code for this tool is in [this Python file](./src/tools/generate_description_from_image.py). Feel free to open this file in your VS Code environment to follow along our explanation of the code. Rather than going through it line by line, we will point out those sections of the code that we want to take a closer look at.
+The code for this tool is in [this Python file](./src/tools/generate_description_from_image.py). Feel free to open this file in your IBM Bob environment to follow along our explanation of the code. Rather than going through it line by line, we will point out those sections of the code that we want to take a closer look at.
 
 The code starts with a set of import statements. To run the code, either within watsonx Orchestrate or on the command line, you need to make sure a set of packages are installed. The [requirements.txt](./src/tools/requirements.txt) file lists all of the required packages. To run it locally, you need to run `pip install -r requirements.txt` with this file. When using this code inside a tool, we can impport this file together with the code, and the server will install the listed packages into the runtime the first time the tool is called. 
 
