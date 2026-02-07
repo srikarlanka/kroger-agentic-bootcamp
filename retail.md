@@ -594,7 +594,8 @@ Can you show me market trends for the products shown in the image at https://i.i
 ![alt text](images/image31.png)
 
 
-Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests. 
+Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests.
+
 
 ## (Optional) Headless Agent
 
@@ -616,9 +617,9 @@ This token has to be sent as part of the header in the HTTP POST request. For a 
 
 ![alt text](images/image45.png)
 
-Note in the screenshot that ths file has two tokens, one for the local environment and one for the SaaS environment that we set up in the previous section. We will only use the local one here. Since we are passing it to the application as a parameter later, you might want to copy it from the file into your clipboard, and then store it in an environment variable for later use.
+Note in the screenshot that ths file has two tokens, one for the local environment and one for the SaaS environment. We will only use the SaaS one here. Since we are passing it to the application as a parameter later, you might want to copy it from the file into your clipboard, and then store it in an environment variable for later use.
 
-```export BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...```
+```export BEARER_TOKEN=eyJ...```
 
 2. **The agent ID**
 
