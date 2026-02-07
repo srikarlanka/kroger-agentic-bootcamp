@@ -46,7 +46,7 @@ Details about each agent and their purpose will be covered below. We will use th
 - Complete the [environment-setup](retail_env_setup.md) guide to set up the ADK environment.
 - Validate that you have access to a credentials file that your instructor will share with you before starting the labs.
 - Familiarity with AI agent concepts (e.g., instructions, tools, collaborators...)
-- Setup IBM BOB IDE on your local.
+- Setup IBM Bob IDE on your local.
 
 ## watsonx Orchestrate ADK
 As mentioned above, we will use the ADK to develop and test the solution. The ADK consists of the following elements:
@@ -54,7 +54,7 @@ As mentioned above, we will use the ADK to develop and test the solution. The AD
 - a container hosting the UI element, which lets you create and manage agents, as well as testing them via chat interface.
 - a CLI that allows simple interactions with watsonx Orchestrate (both the locally running server as well as any SaaS instance), including importing of agents and tools, starting and stopping the server, and more.
   
-We will assume here that as part of the setup, you have gained access to an environment (which could be your own laptop) that lets you access the server via browser window, as well as giving you a command line terminal in which you can enter CLI commands. Moreover, we will do the code development in an instance of VS Code. 
+We will assume here that as part of the setup, you have gained access to an environment (which could be your own laptop) that lets you access the server via browser window, as well as giving you a command line terminal in which you can enter CLI commands. Moreover, we will do the code development in an instance of IBM Bob. 
 
 You can decide to which level of detail you want to explore this use case. You can take the code and the related configuraton as is and simply deploy and run them. Or, you can change some of the details and see what the impact of your change is. For example, change the prompts you are using, or switch the model to a different one. And you can tinker with the code, too! Think of the ADK environment as a developer environment in which you can develop and test before uploading the solution to a shared SaaS environment. 
 
@@ -69,7 +69,7 @@ As part of the solution, we will create two tools:
 ### Image to text tool
 This tool takes the URL of an image hosted on the Internet as input, and returns the description of that image. 
 
-> Why a URL? Ideally, the user interface would allow simply attaching an image file to the interaction, and the agent would pass that image content to the tool. Such an interface is on the roadmap for watsonx Orchestrate, in the interim, we are simply using a workaround, naemly passing a URL.
+> Why a URL? Initially this was a work around, but now you would just have to declare the input type `Bytes` and you would get a widget to upload and download files as needed. 
 
 The code for this tool is in [this Python file](./src/tools/generate_description_from_image.py). Feel free to open this file in your VS Code environment to follow along our explanation of the code. Rather than going through it line by line, we will point out those sections of the code that we want to take a closer look at.
 
