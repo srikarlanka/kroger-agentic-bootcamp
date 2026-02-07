@@ -376,7 +376,7 @@ Note how we divided the instructions into separate sections for persona, context
 > 
 > Install command - npx -y @guhcostan/web-search-mcp
   ![alt text](images/mcp_details.png)
-- Once you add the MCP server you should see a tool for `websearch_mcp:fetch_page` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:fetch_page`. Select it and click on add to agent.
+- Once you add the MCP server you should see a tool for `websearch_mcp:search_web` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:search_web`. Select it and click on add to agent.
   ![alt text](images/add_tools_list.png)
   ![alt text](images/tools_ira.png)
 The `Show agent` switch, at the bottom of the agent configuration page, controls whether or not the agent will be visible on the main watsonx Orchestrate page. We will leave this on for now, but eventually we will switch it off, because we want users to only use the supervisory agent (which we will create below).
