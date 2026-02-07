@@ -432,8 +432,16 @@ Choose the `Connectors` option and click on the pencil to edit.
 ![alt text](images/orchestrate-connections-edit.png)
 
 
-Choose Oauth2 for Authorization and member credentials and enter your details for the connection. Click on save changes and now you should be able to deploy your agent.
+Choose Oauth2 Authorization Code
 ![alt text](images/conn_details.png)
+
+Fill out the following information and select on the `Member credentials` option, then click `Save changes`
+
+![alt text](images/servicenow-connection-filled.png)
+
+![alt text](images/servicenow-connection-part-two.png)
+
+
 
 Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
 
