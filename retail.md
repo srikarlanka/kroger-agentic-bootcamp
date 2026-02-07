@@ -311,7 +311,7 @@ Then click on the `Launch watsonx Orchestrate` button.
 
 Now click on the Hamburger menu near the top left of the screen and then `Build`.
 
-In the next window, leave the `Create from scratch` option selected. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
+In the next window, click the `Create agent` button and select the `Create from scratch` option. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
 ```
 The Internet Research Agent assists with identifying market trends for all products that can be found on images. If asked for recall information about products, it also assists with identifying active recall notices on products mentioned or found on images.
 ```
