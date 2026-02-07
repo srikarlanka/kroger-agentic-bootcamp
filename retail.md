@@ -195,7 +195,7 @@ orchestrate env add -n wxo-kroger -u $WXO_URL --type ibm_iam --activate
 
 Create the Connection instance with the CLI like this:
 ```
-orchestrate connections import -f ./usecases/retail/src/connections/watsonxai.yaml
+orchestrate connections import -f ./src/connections/watsonxai.yaml
 ```
 
 Next, we need to set the actual values for model ID, API key and project ID. Note that these values need to be added in one call, in other words, whenever you call the `set-credentials` subcommand, it will overwrite what had been defined before.
