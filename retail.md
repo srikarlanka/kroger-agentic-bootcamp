@@ -58,7 +58,7 @@ We will assume here that as part of the setup, you have gained access to an envi
 
 You can decide to which level of detail you want to explore this use case. You can take the code and the related configuraton as is and simply deploy and run them. Or, you can change some of the details and see what the impact of your change is. For example, change the prompts you are using, or switch the model to a different one. And you can tinker with the code, too! Think of the ADK environment as a developer environment in which you can develop and test before uploading the solution to a shared SaaS environment. 
 
-> Note that the screenshots below may vary slightly, depending on which environment you are using, but the exact same functionality is offered regardless of which environment you choose.
+> Note that the screenshots below may vary slightly, depending on which environment you are using, but the exact same functionality is offered regardless of which environment you choose. Also, if you decide to change models, you can try: `meta-llama/llama-4-maverick-17b-128e-instruct-fp8`
 
 ## The tools
 As part of the solution, we will create two tools:
