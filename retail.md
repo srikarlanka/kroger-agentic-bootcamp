@@ -612,6 +612,7 @@ Run the following commmand:
 ```
 orchestrate server start -e .env
 ```
+> You may have to run the above command twice!
 
 ### Code Walkthrough
 
