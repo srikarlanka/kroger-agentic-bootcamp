@@ -201,24 +201,13 @@ orchestrate connections import -f ./src/connections/watsonxai.yaml
 Next, we need to set the actual values for model ID, API key and project ID. Note that these values need to be added in one call, in other words, whenever you call the `set-credentials` subcommand, it will overwrite what had been defined before.
 Below is a script that shows how you can use the same .env file we used earlier to set up the Connections object:
 ```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
 source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a watsonxai --env "${TARGET_ENV}" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
+orchestrate connections set-credentials -a watsonxai --env "draft" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
 ```
 
 After this, you are finally ready to import the tool. On the command line, enter the following command to do so (make sure you are in the right folder when calling it):
 ```
-orchestrate tools import -k python -f ./usecases/retail/src/tools/generate_description_from_image.py -r ./usecases/retail/src/tools/requirements.txt -a watsonxai
+orchestrate tools import -k python -f ./src/tools/generate_description_from_image.py -r ./src/tools/requirements.txt -a watsonxai
 ```
 You can make sure that the tool was successfully imported by running the following command on the command line:
 ```
