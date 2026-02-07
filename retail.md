@@ -19,6 +19,7 @@
     - [The Internet Research Agent](#the-internet-research-agent)
     - [The Market Analyst Agent](#the-market-analyst-agent)
     - [The Retail Market Agent](#the-retail-market-agent)
+    - [The Ticket Manager](#the-ticket-manager-agent)
   - [Final test and Summary](#final-test-and-summary)
   - [(Optional) Uploading the solution to a watsonx Orchestrate SaaS instance](#optional-uploading-the-solution-to-a-watsonx-orchestrate-saas-instance)
     - [Remote environment configuration](#remote-environment-configuration)
