@@ -168,7 +168,7 @@ WATSONX_APIKEY=oj5BW-...... [insert your API key here]
 WATSONX_SPACE_ID=186ac9b7-35ec....... [insert your space ID here]
 ```
 You call the tool from the command line like this (make sure you are in the root folder of the content repo):
-`python usecases/retail/src/tools/generate_description_from_image.py --url https://i.imgur.com/qfiugNJ.jpeg`
+`python ./src/tools/generate_description_from_image.py --url https://i.imgur.com/qfiugNJ.jpeg`
 
 #### Importing the tool
 The easiest way to import the tool into your ADK instance is to use the CLI. Remember that we are using the concept of a `Connection` to insert the right values for API key etc? Before we can import the tool, we need to create the Connection instance (the import will fail otherwise).
