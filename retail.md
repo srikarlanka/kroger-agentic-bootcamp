@@ -198,7 +198,8 @@ Create the Connection instance with the CLI like this:
 orchestrate connections import -f ./src/connections/watsonxai.yaml
 ```
 
-Next, we need to set the actual values for model ID, API key and project ID. Note that these values need to be added in one call, in other words, whenever you call the `set-credentials` subcommand, it will overwrite what had been defined before.
+Next, we need to set the actual values for model ID, API key and project ID.
+
 Below is a script that shows how you can use the same .env file we used earlier to set up the Connections object:
 ```
 source .env
@@ -220,9 +221,7 @@ We will test this tool via an agent further below, but first let's create and im
 
 This tool is executing a simple web search, using a service called [Tavily](https://www.tavily.com/). There is good integration with this tool via the Langchain Community Tools library, which we will take advantage of here.
 
-Here you will practice your coding skills! The [provided Python file](./src/tools/web_search.py) is incomplete, and we are asking you to fill in the blanks, so to speak. You can use [the image description tool](#image-to-text-tool) discussed above as a reference example for what the code should look like.
-
-> You can choose to skip this exercise and simply use the completed code in the [web_search.py.complete](./src/tools/web_search.py.complete) file.
+The python file relating to this tool is [here](./src/tools/web_search.py).
 
 The required import statements are already filled into the file. Note how it declares a variable called `CONNECTION_TAVILY`; this represents the name of the connection that is used to retrieve the Tavily API key. You can find sample code showing how to retrieve the value from the connection in the image description tool.
 
@@ -247,30 +246,19 @@ environments:
 
 Create the new object by entering the following on the command line:
 ```
-orchestrate connections import -f ./usecases/retail/src/connections/tavily.yaml
+orchestrate connections import -f ./src/connections/tavily.yaml
 ```
 > You will see a warning about the configuration for the `live` environment, you can safely ignore that warning here, we will use the `live` environment only when connected to a remote SaaS instance.
 
-And as before, we use the `set-credentials` subommand to set the actual value of the Tavily API key that is used by the tool. We can use a slightly modified version of the script we used before:
+And as before, we can use a slightly modified version of the script we used before:
 ```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
 source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a tavily --env "${TARGET_ENV}" -e "apikey=${TAVILY_API_KEY}"
+orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAVILY_API_KEY}"
 ```
 
 The final step is to import the tool:
 ```
-orchestrate tools import -k python -f ./usecases/retail/src/tools/web_search.py -r ./usecases/retail/src/tools/requirements.txt -a tavily
+orchestrate tools import -k python -f ./src/tools/web_search.py -r ./usecases/retail/src/tools/requirements.txt -a tavily
 ```
 
 Verify that the second tool was successfully imported by using the `orchestrate tools list` command.
