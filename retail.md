@@ -469,7 +469,7 @@ Note that the `instructions` section has a similar structure to the one in the i
 
 We can import the agent into our watsonx Orchestrate instance by entering the following command:
 ```
-orchestrate agents import -f ./usecases/retail/src/agents/market_analyst_agent.yaml
+orchestrate agents import -f ./src/agents/market_analyst_agent.yaml
 ```
 
 Once imported, we can see and test the agent in the UI. Go back to your browser and click on the `Manage agents` link.
