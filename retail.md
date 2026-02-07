@@ -605,6 +605,17 @@ The example scenario we will walk through here is one where a new photo of a pro
 
 ### Initial Set up
 
+Add the following to your .env.
+```
+WO_DEVELOPER_EDITION_SOURCE=myibm
+WO_ENTITLEMENT_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3NjQ3MTMzMzAsImp0aSI6IjI1YTZlODUzMDk4NjQ4M2RiMmUyYWRmNDRlODQ4ZDQ3In0.AlW8O7stijF_AeR6_VHQrkzl3R1TEnX8740-SRiO8Hc
+```
+
+Run the following commmand:
+```
+orchesrate server start -e .env
+```
+
 ### Code Walkthrough
 
  > Note: the code for the app is in the file [image_listener.py](./src/app/image_listener.py).
