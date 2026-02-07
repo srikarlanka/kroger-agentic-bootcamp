@@ -398,6 +398,7 @@ Note how you can expand the `Show reasoning` link in the Preview window to see t
 ![alt text](images/image8.png)
 
 We can now export the metadata for this agent into a YAML file. This allows us to easily import the same agent in any watsonx Orchestrate environment, including a SaaS instance in IBM Cloud. However, you need to enter the name of the agent, which is not what you entered into the `Name` field when creating the agent. The tool will automatically append a unique identifier to the end. To get the name, you can run `orchestrate agents list`.
+> If needed you can also run `orchestrate agents list -v` for easier copy and paste.
 
 ![alt text](images/image38.png)
 
