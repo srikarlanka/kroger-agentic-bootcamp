@@ -256,7 +256,7 @@ source .env
 orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAVILY_API_KEY}"
 ```
 
-The final steps are to import the `live` configurations of the connections and import the tool:
+The final steps are to import the `live` configurations of the connections and import the `tool`:
 
 Configuring the live script:
 ```
