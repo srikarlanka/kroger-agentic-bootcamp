@@ -423,8 +423,14 @@ Search for ServiceNow in the search bar and scroll down to the Ticket Manager Ag
 Click on the Ticket Manager Agent and then click on Use as Template. These agents are ready to use agents that can also serve as templates if you need specific functionality within your connections, apps etc. For the purpose of this lab, we will not be editing this agent at all, however depending on your use case you can edit every single detail within this agent. 
 ![alt text](images/template.png)
 
-Click on Deploy and scroll down to Connections. Click on the edit pencil icon next to the service not connection if the connection status shows as not connected.
-![alt text](images/deploy_conn.png)
+Click on Deploy and scroll down to Toolset. Click on the three dots next to the `Create a ticket in ServiceNow` and then `Edit details`
+
+![alt text](images/orchestrate-tools-edit-details.png)
+
+Choose the `Connectors` option and click on the pencil to edit.
+
+![alt text](images/orchestrate-connections-edit.png)
+
 
 Choose Oauth2 for Authorization and member credentials and enter your details for the connection. Click on save changes and now you should be able to deploy your agent.
 ![alt text](images/conn_details.png)
