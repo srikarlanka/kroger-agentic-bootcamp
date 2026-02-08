@@ -5,6 +5,7 @@ A step-by-step guide to configure OAuth Authorization Code Grant in ServiceNow.
 ## 1. Login to ServiceNow
 
 Navigate to your ServiceNow instance and login with your credentials.
+> Hopefully you received an email with your instance url `https://dev<your-instance>.service-now.com`. If not you can navigate through [their developer site](https://developer.servicenow.com/), by signing in and clicking `manage my instance`.
 
 ![Login with credentials](./images/servicenow/servicenow-02-landing-page-filled.png)
 
