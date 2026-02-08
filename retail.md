@@ -433,6 +433,20 @@ Choose `Oauth2 Authorization Code`
 
 Fill out the following information and select on the `Member credentials` option, then click `Save changes`
 
+`Server URL`
+```
+https://<your-servicenow-instance>.com/
+```
+`Token URL`:
+```
+https://<your-servicenow-instance>.com/oauth_token.do
+```
+`Authorization URL`:
+```
+https://<your-servicenow-instance>.com/oauth_auth.do
+```
+`Client ID` and `Client Secret` are from the steps you did earlier.
+
 ![alt text](images/servicenow-connection-filled.png)
 
 ![alt text](images/servicenow-connection-part-two.png)
