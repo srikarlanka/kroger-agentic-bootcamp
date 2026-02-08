@@ -45,7 +45,7 @@ class NewFileHandler(FileSystemEventHandler):
             print(f"New file detected: {file_path}")
 
             try:
-                file_url = f"http://host.docker.internal:8001/{filename}"
+                file_url = f"http://host.docker.internal:8002/{filename}"
                 payload = {
                     "stream": False,
                     "messages": [

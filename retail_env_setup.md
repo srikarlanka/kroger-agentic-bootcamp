@@ -1,63 +1,21 @@
 # Setup for the Retail use case lab
 - [Introduction](#introduction)
-- [Virtual machine option](#virtual-machine-option)
 - [Lab materials](#lab-materials)
   - [Local machine](#local-machine)
-    - [VS Code](#vs-code)
-  - [Virtual machine](#virtual-machine)
-    - [VS Code](#vs-code-1)
 - [Environments](#environments)
   - [watsonx.ai](#watsonxai)
     - [The .env file](#the-env-file)
     - [API key](#api-key)
-  - [Entitlement key](#entitlement-key)
-    - [Local machine](#local-machine-1)
-    - [Virtual machine](#virtual-machine-1)
   - [watsonx Orchestrate ADK](#watsonx-orchestrate-adk)
     - [Local machine](#local-machine-2)
-    - [Virtual machine](#virtual-machine-2)
   - [watsonx Orchestrate](#watsonx-orchestrate)
   - [Tavily](#tavily)
 
 ## Introduction
 
-This document contains the documentation for the setup of the environment to prepare for the step-by-step walkthrough of the [Retail use case](../usecases/retail/).
+This document contains the documentation for the setup of the environment to prepare for the step-by-step walkthrough of the Retail use case.
 
-The use case takes you through the creation of tools and agents using the [IBM watsonx Orchestrate Agent Development Kit (ADK)](https://developer.watson-orchestrate.ibm.com/). This toolkit can be installed on a local machine or accessed via virtual machine and brings with it the core components of watsonx Orchestrate, as container images that are running in a container runtime like Docker or Rancher. It also includes a CLI that can be used to manage a locally running instance as well as remote instances running in the cloud.
-
-## Virtual machine option
-
-For this lab, you have the option to define and run the agents locally on your own laptop, using the ADK. The system requirements are mentioned/referenced in the [ADK install section](#watsonx-orchestrate-adk) below.
-
-If you are unable to run the ADK locally, your instructor will provide you with access to a virtual machine that has the ADK already installed. You can access the VM by using a console link that opens a view of the VM's desktop UI in a browser tab.
-
-Click the **Ctrl-Alt-Delete CAD** button (annotated with red arrow) to be prompted to enter username and password. Keep the default username as **Administrator** and enter the password **IBMDem0s** in the password field (annotated with red rectangle) and hit **ENTER**.
-
-![alt text](assets/techzone-vm-login.png)
-
-*Optional* It is also recommended to resize the virtual screen to Full Screen. To do so, click the **Resize** icon (annotated with red arrow) and select **Fullscreen** (annotated with red rectangle).
-
-If you get a pop-up about an Unplanned shutdown, cancel that pop-up. 
-
-Once logged into the Windows VM, let's start `Rancher Desktop`. This is the container runtime we will use later for the ADK. On the home screen, double-click the Rancher Desktop icon.
-
-![alt text](assets/image37.png)
-
-You will see in the Rancher console that it is starting up the service. Once that has completed, you can minimize the window, since we won't need it anymore.
-
-![alt text](assets/image38.png)
-
-Next, you need to open a command line terminal with access to the WSL instance. To start, click the **Ubuntu** icon (annotated with red arrow) pinned to the taskbar to start the Ubuntu terminal. Alternatively, you can type **ubuntu** into the search field (annotated with a red oval) and click the **Ubuntu** app (annotated with a red rectangle).
-
-![alt text](assets/techzone-vm-ubuntu.png)
-
-In the Ubuntu terminal, you need to activate the Python environment, which is already setup and has the watsonx Orchestrate ADK pre-installed.
-```
-source /home/techzone/wsl_wxoenv/bin/activate
-```
-
-![alt text](assets/techzone-vm-ubuntu-python-env.png)
-
+The use case takes you through the creation of tools and agents using the [IBM watsonx Orchestrate Agent Development Kit (ADK)](https://developer.watson-orchestrate.ibm.com/). This toolkit can be installed on a local machine, and accessed through a CLI.
 
 ## Lab materials
 
@@ -72,56 +30,9 @@ In this case, you can choose any folder as the base for the material. You should
 ### Windows Users
 If you are running locally on a Windows machine, please install the appropriate version: https://git-scm.com/install/windows. This will be used to run bash scripts needed in the lab. 
 
-#### VS Code
-We recommend you use VS Code to view the materials and edit files as needed. Assuming you have the command line starter installed, you should be able to start VS Code right from the command line by entering `code .`.
+#### IBM Bob
+We recommend you use IBM Bob to view the materials and edit files as needed. Assuming you have the command line starter installed, you should be able to start IBM Bob right from the command line by entering `bobide .`.
 
-### Virtual machine
-
-The virtual machine is using Windows as its operating system; however, we will be using the "Windows Subsystem for Linux (WSL)" to run the ADK. When downloading and unzipping the file with materials, you should put it into the folder that has been precreated.
-
-After you open the VM console in your browser, you will see the Windows user interface. There, you can open a Firefox browser window and enter the address your instructor gave you. In the example below, the zip file exists as a downloadable file in Box:
-
-![alt text](assets/image21.png)
-
-When clicking on the Download button, the file will be downloaded into the `Downloads` folder on the Windows machine. Open that folder by simply clicking on the `Show all downloads` button.
-
-![alt text](assets/image22.png)
-
-Then click on the `Show in Folder` icon to open the file explorer window,as shown below.
-
-![alt text](assets/image23.png)
-
-Right-click on the zip file and select `Copy`.
-
-![alt text](assets/image24.png)
-
-Now navigate to the `Ubuntu` folder under `Linux` on the left side of the file explorer menu.
-
-![alt text](assets/image25.png)
-
-In the folder, navigate to `home -> techzone -> wxo_dev_edition`, right click and click on Paste.
-
-![alt text](assets/image26.png)
-
-Open the folder and right-click on the zip file. In the context window for the zip file, select `Extract all`. You may receive a warning that this file is from the Internet. Click OK.
-
-![alt text](assets/image28.png)
-
-As the destination, make sure you enter the `wxo_dev_edition` (which is not the default), as shown below. Then click on `Extract`.
-
-![alt text](assets/image29.png)
-
-Note that the extraction process can take a couple of minutes. After it completes, your file explorer window should show the extracted files in the `wxo_dev_edition` folder. If they are placed into a subfolder, you can cut and paste them.
-
-![alt text](assets/image30.png)
-
-#### VS Code
-
-VS Code is already installed on the Windows-based virtual machine. To open it, simply type "code" into the search field at the bottom left of the screen. The "VS Code" app will automatically be offered as a choice, and you can open it by clicking on the app icon.
-
- The application will automatically open the folder with all the files you are going to need during this lab.
-
-![alt text](assets/image32.png)
 
 ## Environments
 
@@ -173,12 +84,13 @@ The last step here is that we need to capture the Space GUID. You can find the G
 
 #### The .env file
 
-The Space GUID, as well as a number of other environment variables, goes into a file called `.env`. This file should exist in **the root folder** of where you extracted the content of the repo that was provided to you by your instructor (this file is also in that repo, of course), in other words, it should be at the same level as the `usecases` or `environment-setup` subfolders.
+The Space GUID, as well as a number of other environment variables, goes into a file called `.env`. This file should exist in **the root folder** of where you extracted the content of the repo that was provided to you by your instructor (this file is also in that repo, of course), in other words, it should be at the same level as the `usecases` or `environment-setup` subfolders. 
 
-- If you are using the virtual machine with a pre-installed ADK, you already have this file in the `wxo_dev_edition` folder in the WSL environment within that virtual machine. 
+Start by copying the `.env.sample` provided to you into a .env file.
+
 - If you are running this on your local machine, you should have already unzipped the file with materials into a folder of your choosing, as described [above](#local-machine). Create an empty .env file and make sure you place the `.env` file in that same folder. 
 
-You can edit the file with an editor of your choosing. We recommend using VS Code for this. 
+You can edit the file with an editor of your choosing. We recommend using IBM Bob for this. 
 
 Add the Space GUID value that you captured above to the `WATSONX_SPACE_ID` variable.
 
@@ -210,18 +122,16 @@ The API key also goes into the .env file, add it to the `WATSONX_APIKEY` variabl
 
 ![alt text](assets/image40.png)
 
+#### WXO Service URL
+Finally, you will need a url associated to your watsonx Orchestrate instance. Start by navigating to [IBM Cloud resources](https://cloud.ibm.com/resources), then click on the AI / Machine Learning drop down and select Orchestrate. 
 
-### Entitlement key
-The watsonx Orchestrate Developer Edition, which you will use extensively in this lab, consists of a number of container images that are downloaded from the IBM registry during install. To authenticate with this registry, you need an "entitlement key".
+![alt text](./assets/ibm-cloud-resources-orchestrate.png)
 
-#### Local machine
-Your instructor will provide the entitlement key for you.
-You can add the key to your .env file via editor, to the `WO_ENTITLEMENT_KEY` variable.
+Copy this `URL` and save it in your .env
 
-Also, make sure you have the `WO_DEVELOPER_EDITION_SKIP` variable set to `false`.
+![alt text](./assets/ibm-cloud-orchestrate-url.png)
 
-#### Virtual machine
-The Developer Edition is already preinstalled on the virtual machine, which includes downloading the container images. Since they are cached on the virtual machine, no entitlement key is required and you can leave the variable unset. However, make sure that the `WO_DEVELOPER_EDITION_SKIP` variable set to `true`.
+![alt text](./assets/env-orchestrate-url.png)
 
 ### watsonx Orchestrate ADK
 
@@ -229,49 +139,13 @@ As mentioned above, the ADK allows hosting the core Orchestrate components on a 
 
 #### Local machine
 
-To run it on your own laptop, you need to install 
-- [Docker](https://www.docker.com/products/docker-desktop/) or [Rancher](https://www.rancher.com/products/rancher-desktop)
-  - the containers that run as part of the ADK will require ~12GB of memory, so you need to allocate at least that much to the virtual machine hosting the container runtime
-- Python 3.11
-- Visual Studio Code
+To run it on your own laptop, you need to install:
+- Python 3.11 + 
+- IBM Bob (or similar editor)
 
 Once you have these prerequisites available, you can install the ADK by following the instructions at [the ADK install page](https://developer.watson-orchestrate.ibm.com/getting_started/installing).
 
-> **Note**: These instructions were created for a specific version of the ADK, namely version **1.8.0**. We recommend you specify that version when running the install: `pip install ibm-watsonx-orchestrate==1.8.0`.
-
-You also need to install the watsonx Orchestrate Developer Edition, which is part of the ADK, by following the related [install instructions](https://developer.watson-orchestrate.ibm.com/getting_started/wxOde_setup). However, **DO NOT** set up the .env file as described in the instructions! You already have the right values in your .env file if you followed the instructions above.
-
-After you created the .env file with the values given to you, you can follow the instructions to start the server for the first time as documented [here](https://developer.watson-orchestrate.ibm.com/getting_started/wxOde_setup#installing-the-watsonx-orchestrate-developer-edition-with-adk). Note that the first time you run it, it will download all the required container images from the IBM image registry, which will take some time. Also, make sure you specify the `-i` option to allow the server to collect telemetry data.
-
-#### Virtual machine
-
-At this point, you should have filled in the required values into the .env file using VS Code as described above. You should also have a command line terminal open in the UI, with `wxo_dev_edition` as the current folder.
-
-Alternatively, you can also use the built-in terminal window in VS Code, which is located below the main editor window. Make sure you activate the Python environment as shown in the picture below.
-
-![alt text](assets/image34.png)
-
-> You don't need to set the Tavily API key here, we will show how to obtain and set that key [below](#tavily).
-
-You can start the Orchestrate server by entering the following command:
-```
-orchestrate server start --env-file .env -i
-```
-
-When running it for the first time, it may take a bit longer to start, depending on whether it has to download the latest versions of the container images (the images should all be cached in the virtual machine already, though). Note that the `-i` option tells the server to collect elemetry data that we can later use to monitor it.
-
-![alt text](assets/image35.png)
-
-Once you see the message that the server has been started and that you should activate the local environment, enter the following:
-```
-orchestrate env activate local
-```
-
-![alt text](assets/image36.png)
-
 ### watsonx Orchestrate 
-
-In this lab, you will create a number of components (tools, agents, etc) in your local environment and run and test them there, without the need to access an instance of watsonx Orchestrate in the cloud. However, the last part of the lab describes how you can take the same components and easily deploy and run them on a watsonx Orchestrate SaaS instance. You need such an instance for that part of the lab.
 
 Your instructor will provision both the watsonx.ai and the watsonx Orchestrate instances for you and you can find the watsonx Orchestrate resource in the IBM Cloud resource list. This is only needed for the last part of the lab.
 
@@ -297,4 +171,4 @@ Click on the Plus sign as shown in the image above. Name your key "default". Aft
 
 To complete the setup for this use case, we will add the Tavily API key to the .env file as before, with an editor of your choice. Add your key to the `TAVILY_API_KEY` variable.
 
-This is it! You are now ready to proceed to the [detailed lab instructions](../usecases/retail/retail.md).
+This is it! You are now ready to proceed to the [detailed lab instructions](./retail.md).

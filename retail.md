@@ -15,14 +15,12 @@
       - [Importing the tool](#importing-the-tool)
     - [Web search tool](#web-search-tool)
   - [The agents](#the-agents)
-    - [Starting the Chat UI](#starting-the-chat-ui)
     - [The Internet Research Agent](#the-internet-research-agent)
     - [The Market Analyst Agent](#the-market-analyst-agent)
     - [The Retail Market Agent](#the-retail-market-agent)
+    - [The Ticket Manager](#the-ticket-manager-agent)
   - [Final test and Summary](#final-test-and-summary)
-  - [(Optional) Uploading the solution to a watsonx Orchestrate SaaS instance](#optional-uploading-the-solution-to-a-watsonx-orchestrate-saas-instance)
-    - [Remote environment configuration](#remote-environment-configuration)
-    - [Importing connections, tools and agents](#importing-connections-tools-and-agents)
+    - [Additional Testing](#additional-testing)
   - [(Optional) Headless Agent](#optional-headless-agent)
     - [Code Walkthrough](#code-walkthrough)
       - [The local HTTP server](#the-local-http-server)
@@ -40,17 +38,13 @@ The solution consists of several agents who are working together to address the 
 Details about each agent and their purpose will be covered below. We will use the [IBM watsonx Orchestrate Agent Developer Kit (ADK)](https://developer.watson-orchestrate.ibm.com/) to create the solution.
 
 ### Pre-requisites
-
-**Instructors**: 
-- Check the corresponding [Instructor's guide](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/tree/main/usecase-setup/retail) to set up all environments and backend services.
-  > NOTE: the `main` branch contains the latest release code. If you want to use a previous release, download the same [release](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/releases) that will be used for participants' lab. 
   
 **Participants**:
 - Validate that you have access to the right environment for this lab.
 - Complete the [environment-setup](retail_env_setup.md) guide to set up the ADK environment.
 - Validate that you have access to a credentials file that your instructor will share with you before starting the labs.
 - Familiarity with AI agent concepts (e.g., instructions, tools, collaborators...)
-- Setup IBM BOB IDE on your local.
+- Setup IBM Bob IDE on your local.
 
 ## watsonx Orchestrate ADK
 As mentioned above, we will use the ADK to develop and test the solution. The ADK consists of the following elements:
@@ -58,11 +52,11 @@ As mentioned above, we will use the ADK to develop and test the solution. The AD
 - a container hosting the UI element, which lets you create and manage agents, as well as testing them via chat interface.
 - a CLI that allows simple interactions with watsonx Orchestrate (both the locally running server as well as any SaaS instance), including importing of agents and tools, starting and stopping the server, and more.
   
-We will assume here that as part of the setup, you have gained access to an environment (which could be your own laptop) that lets you access the server via browser window, as well as giving you a command line terminal in which you can enter CLI commands. Moreover, we will do the code development in an instance of VS Code. 
+We will assume here that as part of the setup, you have gained access to an environment (which could be your own laptop) that lets you access the server via browser window, as well as giving you a command line terminal in which you can enter CLI commands. Moreover, we will do the code development in an instance of IBM Bob. 
 
 You can decide to which level of detail you want to explore this use case. You can take the code and the related configuraton as is and simply deploy and run them. Or, you can change some of the details and see what the impact of your change is. For example, change the prompts you are using, or switch the model to a different one. And you can tinker with the code, too! Think of the ADK environment as a developer environment in which you can develop and test before uploading the solution to a shared SaaS environment. 
 
-> Note that the screenshots below may vary slightly, depending on which environment you are using, but the exact same functionality is offered regardless of which environment you choose.
+> Note that the screenshots below may vary slightly, depending on which environment you are using, but the exact same functionality is offered regardless of which environment you choose. Also, if you decide to change models, you can try: `meta-llama/llama-4-maverick-17b-128e-instruct-fp8`
 
 ## The tools
 As part of the solution, we will create two tools:
@@ -73,11 +67,14 @@ As part of the solution, we will create two tools:
 ### Image to text tool
 This tool takes the URL of an image hosted on the Internet as input, and returns the description of that image. 
 
-> Why a URL? Ideally, the user interface would allow simply attaching an image file to the interaction, and the agent would pass that image content to the tool. Such an interface is on the roadmap for watsonx Orchestrate, in the interim, we are simply using a workaround, naemly passing a URL.
+> Why a URL? Initially this was a work around, but now you would just have to declare the input type `Bytes` and you would get a widget to upload and download files as needed. 
 
-The code for this tool is in [this Python file](./src/tools/generate_description_from_image.py). Feel free to open this file in your VS Code environment to follow along our explanation of the code. Rather than going through it line by line, we will point out those sections of the code that we want to take a closer look at.
+The code for this tool is in [this Python file](./src/tools/generate_description_from_image.py). Feel free to open this file in your IBM Bob environment to follow along our explanation of the code. Rather than going through it line by line, we will point out those sections of the code that we want to take a closer look at.
 
-The code starts with a set of import statements. To run the code, either within watsonx Orchestrate or on the command line, you need to make sure a set of packages are installed. The [requirements.txt](./src/tools/requirements.txt) file lists all of the required packages. To run it locally, you need to run `pip install -r requirements.txt` with this file. When using this code inside a tool, we can impport this file together with the code, and the server will install the listed packages into the runtime the first time the tool is called. 
+The code starts with a set of import statements. To run the code, either within watsonx Orchestrate or on the command line, you need to make sure a set of packages are installed. 
+
+#### Install the Requirements
+The [requirements.txt](./src/tools/requirements.txt) file lists all of the required packages. To run it locally, you need to run `pip install -r requirements.txt` with this file. When using this code inside a tool, we can impport this file together with the code, and the server will install the listed packages into the runtime the first time the tool is called. 
 
 Next you will find this line:
 ```
@@ -145,7 +142,7 @@ The overall flow of the tool is like this:
 - use construct_message to create HumanMessage instance
 - call `model.invoke()` to return description of image content
 
-Note that the main entry point for the tool is the `generate_description_from_image()` function. This is indicated by the `@tool~ annotation that prefixes the function declaration, paired with an indication of the `Connection` that is being used:
+Note that the main entry point for the tool is the `generate_description_from_image()` function. This is indicated by the `@tool`~ annotation that prefixes the function declaration, paired with an indication of the `Connection` that is being used:
 ```
 @tool(
         {"app_id": CONNECTION_WATSONX_AI, "type": ConnectionType.KEY_VALUE}
@@ -172,7 +169,7 @@ WATSONX_APIKEY=oj5BW-...... [insert your API key here]
 WATSONX_SPACE_ID=186ac9b7-35ec....... [insert your space ID here]
 ```
 You call the tool from the command line like this (make sure you are in the root folder of the content repo):
-`python usecases/retail/src/tools/generate_description_from_image.py --url https://i.imgur.com/qfiugNJ.jpeg`
+`python ./src/tools/generate_description_from_image.py --url https://i.imgur.com/qfiugNJ.jpeg`
 
 #### Importing the tool
 The easiest way to import the tool into your ADK instance is to use the CLI. Remember that we are using the concept of a `Connection` to insert the right values for API key etc? Before we can import the tool, we need to create the Connection instance (the import will fail otherwise).
@@ -191,32 +188,31 @@ environments:
 ```
 Note that the YAML defines two `environments`, namely `draft` and `live`. This allows setting credentials for different environments to different values. When using the ADK locally, there is only one environment supported, namely `draft`. The other definition will be ignored. However, we will need the `live` environment when uploading the solution to a remote SaaS instance (which is covered [further below](#optional-uploading-the-solution-to-a-watsonx-orchestrate-saas-instance)), so we have included it into the file.
 
+### Optional 
+#### (if you haven't set up your ADK and activated your environment during this [step](./retail_env_setup.md/#watsonx-orchestrate-adk)):
+
+You'll have to paste your WATSONX_APIKEY after running the below command.
+```
+source .env
+orchestrate env add -n wxo-kroger -u $WXO_URL --type ibm_iam --activate
+```
+
 Create the Connection instance with the CLI like this:
 ```
-orchestrate connections import -f ./usecases/retail/src/connections/watsonxai.yaml
+orchestrate connections import -f ./src/connections/watsonxai.yaml
 ```
 
-Next, we need to set the actual values for model ID, API key and project ID. Note that these values need to be added in one call, in other words, whenever you call the `set-credentials` subcommand, it will overwrite what had been defined before.
+Next, we need to set the actual values for model ID, API key and project ID.
+
 Below is a script that shows how you can use the same .env file we used earlier to set up the Connections object:
 ```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
 source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a watsonxai --env "${TARGET_ENV}" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
+orchestrate connections set-credentials -a watsonxai --env "draft" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
 ```
 
 After this, you are finally ready to import the tool. On the command line, enter the following command to do so (make sure you are in the right folder when calling it):
 ```
-orchestrate tools import -k python -f ./usecases/retail/src/tools/generate_description_from_image.py -r ./usecases/retail/src/tools/requirements.txt -a watsonxai
+orchestrate tools import -k python -f ./src/tools/generate_description_from_image.py -r ./src/tools/requirements.txt -a watsonxai
 ```
 You can make sure that the tool was successfully imported by running the following command on the command line:
 ```
@@ -229,9 +225,7 @@ We will test this tool via an agent further below, but first let's create and im
 
 This tool is executing a simple web search, using a service called [Tavily](https://www.tavily.com/). There is good integration with this tool via the Langchain Community Tools library, which we will take advantage of here.
 
-Here you will practice your coding skills! The [provided Python file](./src/tools/web_search.py) is incomplete, and we are asking you to fill in the blanks, so to speak. You can use [the image description tool](#image-to-text-tool) discussed above as a reference example for what the code should look like.
-
-> You can choose to skip this exercise and simply use the completed code in the [web_search.py.complete](./src/tools/web_search.py.complete) file.
+The python file relating to this tool is [here](./src/tools/web_search.py).
 
 The required import statements are already filled into the file. Note how it declares a variable called `CONNECTION_TAVILY`; this represents the name of the connection that is used to retrieve the Tavily API key. You can find sample code showing how to retrieve the value from the connection in the image description tool.
 
@@ -256,30 +250,28 @@ environments:
 
 Create the new object by entering the following on the command line:
 ```
-orchestrate connections import -f ./usecases/retail/src/connections/tavily.yaml
+orchestrate connections import -f ./src/connections/tavily.yaml
 ```
 > You will see a warning about the configuration for the `live` environment, you can safely ignore that warning here, we will use the `live` environment only when connected to a remote SaaS instance.
 
-And as before, we use the `set-credentials` subommand to set the actual value of the Tavily API key that is used by the tool. We can use a slightly modified version of the script we used before:
+And as before, we can use a slightly modified version of the script we used before:
 ```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
 source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a tavily --env "${TARGET_ENV}" -e "apikey=${TAVILY_API_KEY}"
+orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAVILY_API_KEY}"
 ```
 
-The final step is to import the tool:
+The final steps are to import the `live` configurations of the connections and import the `tool`:
+
+Configuring the live script:
 ```
-orchestrate tools import -k python -f ./usecases/retail/src/tools/web_search.py -r ./usecases/retail/src/tools/requirements.txt -a tavily
+chmod +x ./src/set-credentials.sh
+./src/set-credentials.sh
+```
+
+
+importing the tool
+```
+orchestrate tools import -k python -f ./src/tools/web_search.py -r ./src/tools/requirements.txt -a tavily
 ```
 
 Verify that the second tool was successfully imported by using the `orchestrate tools list` command.
@@ -290,45 +282,34 @@ Verify that the second tool was successfully imported by using the `orchestrate 
 
 ## The agents
 
-We will create three agents to implement this use case:
+We will create four agents to implement this use case:
 - The Internet Research Agent handles the interpretation of any images that are submitted by the user, and runs web searches to identify market trends related to the relevant products.
 - The Market Analyst Agent will analyze market trends and develop related recommendations and create an action plan.
 - The Retail Market Agent is the supervisory agent that interacts with the user and collaborates with other agents, i.e. the two agents listed above, to create the final answer for the user.
+- The Ticket Manager Agent is the catalog agent that we are using to tie everything back into ServiceNow.
 
 Each agent will be defined inside a YAML file that we can easily import into watsonx Orchestrate for testing, but we will also take you through the UI-based Agent Builder tool.
 
-### Starting the Chat UI
-
-Before we can start defining our first agent via the UI, we have to import at least one agent into the environment via YAML. The reason being that without having an agent defined, the UI will not start. We could simply import one of the agents discussed below, but since we want to take you through the UI to define those, we will import a sample agent here to allow the UI to start. 
-
-The sample agent offers insight into IBM, and it uses a "knowledge base" consisting of a number of PDF files as its source. First, we need to import this new knowledge base. Enter the following on the command line:
-```
-orchestrate knowledge-bases import -f ./usecases/retail/src/ibm_knowledge/knowledge_base/ibm_knowledge_base.yaml
-```
-
-After creating the knowledge base, we can import the actual agent:
-```
-orchestrate agents import -f ./usecases/retail/src/ibm_knowledge/agents/ibm_agent.yaml
-```
-
-You can try out this agent later, for now we will leave it alone and continue with our retail use case.
 
 ### The Internet Research Agent
 
 This agent will leverage both tools we defined and imported earlier to help answer requests. The main intended use of this agent is to take an image of a product shelf as input, and return both a description of the displayed products as well as related market trends to the user. The first part uses the image to text tool, the second part uses the web search tool.
 
 In this case, we will define this agent interactively in the UI of watsonx Orchestrate. It offers an easy-to-use interface to enter all the relevant fields.
-Start out by making sure the local UI server is started, if you haven't already done so:
-```
-orchestrate chat start --env-file .env
-```
 
-This will open the browser window with the watsonx Orchestrate homepage.
-![alt text](images/image1.png)
+Click on the following link and open `Watson Orchestrate-itz`
 
-Click on the `Create new agent` link at the bottom right corner of the page.
+[IBM Cloud Resources Link](https://cloud.ibm.com/resources)
 
-In the next window, leave the `Create from scratch` option selected. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
+On the page with all your resources, you can find your watsonx Orchestrate instance in the `AI / Machine Learning` section. The instance will have `watsonx Orchestrate in the Product column. Click on the name of the instance.
+
+![alt text](./assets/ibm-cloud-resources-orchestrate.png)
+
+Then click on the `Launch watsonx Orchestrate` button.
+
+Now click on the Hamburger menu near the top left of the screen and then `Build`.
+
+In the next window, click the `Create agent` button and select the `Create from scratch` option. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
 ```
 The Internet Research Agent assists with identifying market trends for all products that can be found on images. If asked for recall information about products, it also assists with identifying active recall notices on products mentioned or found on images.
 ```
@@ -393,7 +374,7 @@ Note how we divided the instructions into separate sections for persona, context
 > 
 > Install command - npx -y @guhcostan/web-search-mcp
   ![alt text](images/mcp_details.png)
-- Once you add the MCP server you should see a tool for `websearch_mcp:fetch_page` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:fetch_page`. Select it and click on add to agent.
+- Once you add the MCP server you should see a tool for `websearch_mcp:search_web` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:search_web`. Select it and click on add to agent.
   ![alt text](images/add_tools_list.png)
   ![alt text](images/tools_ira.png)
 The `Show agent` switch, at the bottom of the agent configuration page, controls whether or not the agent will be visible on the main watsonx Orchestrate page. We will leave this on for now, but eventually we will switch it off, because we want users to only use the supervisory agent (which we will create below).
@@ -414,6 +395,7 @@ Note how you can expand the `Show reasoning` link in the Preview window to see t
 ![alt text](images/image8.png)
 
 We can now export the metadata for this agent into a YAML file. This allows us to easily import the same agent in any watsonx Orchestrate environment, including a SaaS instance in IBM Cloud. However, you need to enter the name of the agent, which is not what you entered into the `Name` field when creating the agent. The tool will automatically append a unique identifier to the end. To get the name, you can run `orchestrate agents list`.
+> If needed you can also run `orchestrate agents list -v` for easier copy and paste.
 
 ![alt text](images/image38.png)
 
@@ -438,11 +420,24 @@ Search for ServiceNow in the search bar and scroll down to the Ticket Manager Ag
 Click on the Ticket Manager Agent and then click on Use as Template. These agents are ready to use agents that can also serve as templates if you need specific functionality within your connections, apps etc. For the purpose of this lab, we will not be editing this agent at all, however depending on your use case you can edit every single detail within this agent. 
 ![alt text](images/template.png)
 
-Click on Deploy and scroll down to Connections. Click on the edit pencil icon next to the service not connection if the connection status shows as not connected.
-![alt text](images/deploy_conn.png)
+Click on Deploy and scroll down to Toolset. Click on the three dots next to the `Create a ticket in ServiceNow` and then `Edit details`
 
-Choose Oauth2 for Authorization and member credentials and enter your details for the connection. Click on save changes and now you should be able to deploy your agent.
+![alt text](images/orchestrate-tools-edit-details.png)
+
+Choose the `Connectors` option and click on the pencil to edit.
+
+![alt text](images/orchestrate-connections-edit.png)
+
+
+Choose `Oauth2 Authorization Code`
 ![alt text](images/conn_details.png)
+
+Fill out the following information and select on the `Member credentials` option, then click `Save changes`
+
+![alt text](images/servicenow-connection-filled.png)
+
+![alt text](images/servicenow-connection-part-two.png)
+
 
 Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
 
@@ -471,7 +466,7 @@ Note that the `instructions` section has a similar structure to the one in the i
 
 We can import the agent into our watsonx Orchestrate instance by entering the following command:
 ```
-orchestrate agents import -f ./usecases/retail/src/agents/market_analyst_agent.yaml
+orchestrate agents import -f ./src/agents/market_analyst_agent.yaml
 ```
 
 Once imported, we can see and test the agent in the UI. Go back to your browser and click on the `Manage agents` link.
@@ -515,7 +510,7 @@ Note how the 'Key Instruction' section contains details about how to use other a
 
 We import this agent just like the previous one:
 ```
-orchestrate agents import -f ./usecases/retail/src/agents/retail_market_agent.yaml
+orchestrate agents import -f ./src/agents/retail_market_agent.yaml
 ```
 
 Back in the `Manage agents` view in the UI, you can reload the page and see the new agent listed next to the other ones.
@@ -585,182 +580,19 @@ This should have created a service now ticket for the recall notice in the insta
 
 Feel free to explore further, by changing descriptions and instructions, to see what the impact on the solution is.
 
-## (Optional) Uploading the solution to a watsonx Orchestrate SaaS instance
-The idea behind the ADK is to allow developers to create agentic solutions on their laptops and test them in a local environment. Once tests have completed, the solution can be pushed into a separate instance, including one that runs in the cloud. It uses the exact same CLI commands for doing so. And since we stored all of the agent and tool definitions in YAML files, we can run the entire process via the command line.
 
-### Remote environment configuration
-As a first step, you need to create a configuration for the remote environment. To a remote SaaS environment, you need to know its endpoint and its API key. You can find both on the resource page for your watsonx Orchestrate instance in the IBM Cloud console.
+### Additional Testing
 
-To find the endpoint URL, open the watsonx Orchestrate console and click on the profile button at the top right corner of the page. Then click on `Settings`:
-
-![alt text](images/image17.png)
-
-On the settings page, click on the `API details` tab.
-
-![alt text](images/image19.png)
-
-There you can copy the Service instance URL to the clipboard by clicking the icon next to the URL, as shown below:
-![alt text](images/image18.png)
-
-Now switch back to the command line and enter the following command on the command line:
-```
-export WXO_ENDPOINT=[copy the URL from the clipboard in here]
-orchestrate env add -n wxo-saas -u ${WXO_ENDPOINT}
-```
-You should see a confirmation message like this:
-```
-[INFO] - Environment 'wxo-saas' has been created
-```
-
-If you run the command `orchestrate env list`, it will show you two environments, the local one and the remote we just added, with the local labeled as "active". Before we activate the remote environment, we have to copy the instance's API key.
-Back on the API details tab of the Settings page, it will most likely not list any API keys (assuming this is a 'fresh' instance), but there is a button labeled `Generate API key`.
-
-![alt text](images/image20.png)
-
-Click on that button to generate a key. This will redirect you to the IBM Cloud IAM API keys page. You may see one or more keys already generated (as shown on the picture below), but go ahead and create a new one for this exercise, by clicking on the `Create` button.
-
-![alt text](images/image21.png)
-
-Give the new key a descriptive name and click on `Create` again.
-
-![alt text](images/image22.png)
-
-Make sure you copy the new key's value to the clipboard. 
-
-![alt text](images/image23.png)
-
-You may also want to copy it into an environment variable, in case you need to use it again later. You won't be able to look it up in the IBM Cloud IAM console after closing the window showing the `API key successfully created` message.
-```
-export myAPIkey=[copy the API key from the clipboard in here]
-```
-
-To activate the remote environment, simply enter 
-```
-orchestrate env activate wxo-saas
-```
-It will now ask you for the API key of your remote instance. You should still have it in the clipboard and can simply paste it here.
-
-After entering the key and hitting Enter, you should get a message saying `[INFO] - Environment 'wxo-saas' is now active`.
-
-A simple way to verify you can connect with the remote instance is to ask for any agents or tools it might contain, by using the `orchestrate agents list` and `orchestrate tools list` commands. In the example screenshot below, it shows as empty, but in your case it may list agents you created in a previous use case.
-
-![alt text](images/image24.png)
-
-### Importing connections, tools and agents
-Now we are ready to import the connections, tools and agents into the remote environment, reusing the definitions we created for the local instance. For convenience, you can find the commands in a [script](./src/import-all.sh) that runs the required steps:
-
-```
-#!/usr/bin/env bash
-set -x
-
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-for connection in tavily.yaml watsonxai.yaml; do
-  orchestrate connections import -f ${SCRIPT_DIR}/connections/${connection}
-done
-
-for python_tool in web_search.py generate_description_from_image.py; do
-  orchestrate tools import -k python -f ${SCRIPT_DIR}/tools/${python_tool} -r ${SCRIPT_DIR}/tools/requirements.txt -a watsonxai -a tavily
-done
-
-for agent in internet_research_agent.yaml market_analyst_agent.yaml retail_market_agent.yaml; do
-  orchestrate agents import -f ${SCRIPT_DIR}/agents/${agent} -a tavily -a watsonxai
-done
-```
-
-So go ahead and enter `./usecases/retail/src/import-all.sh` on the command line.
-
-![alt text](images/image25.png)
-
-Now we you enter, for example, `orchestrate agents list`, you should see the agents listed.
-
-![alt text](images/image26.png)
-
-Before we can start testing, we also need to set the credentials in the connections, so that the tools can retrieve the correct API keys etc. We have automated this part into a separate [script](./src/set-credentials.sh):
-```
-#!/bin/bash
-
-# Use default if no argument was passed
-DEFAULT_TARGET_ENV="draft"
-TARGET_ENV="${1:-$DEFAULT_TARGET_ENV}"
-
-# Load variables from .env
-set -o allexport
-source .env
-set +o allexport
-
-# set the credentials
-orchestrate connections set-credentials -a watsonxai --env "${TARGET_ENV}" -e "modelid=${WATSONX_MODEL_ID}" -e "spaceid=${WATSONX_SPACE_ID}" -e "apikey=${WATSONX_APIKEY}"
-orchestrate connections set-credentials -a tavily --env "${TARGET_ENV}" -e "apikey=${TAVILY_API_KEY}"
-```
-Remember that the values for the credentials are retrieved from the .env file. This script also has a parameter controlling which environment is configured with values. As we mentioned above, the are two environments defined in each `Connection` we use, namely `draft` and `live`. The `live` environment was ignored when running against a local ADK instance, but we need it here. The `live` environment is used when running an agent that is in `deployed` state. We will deploy the agents below, but here, we just set the same values in both the draft and the live environment.
-
-Enter the following on the command line.
-```
-./usecases/retail/src/set-credentials.sh draft
-./usecases/retail/src/set-credentials.sh live
-```
-
-![alt text](images/image30.png)
-
-Let's test the agents in the SaaS instance now, to verify they work as expected. Open the watsonx Orchestrate console in your browser. You should still have a tab with the console open, from when we captured the service instance URL above. The easiest way to get back to the homepage is to simply click on `IBM watsons Orchestrate` in the top left of the window.
-
-![alt text](images/image27.png)
-
-On the homepage, you will not see the new agents available for chat. The reason is that in order to become visible there, we have to "deploy" the agents. Click on the `Manage agents` link at the bottom left of the page.
-
-![alt text](images/image28.png)
-
-All three agents shoud be listed there. Let's start with the internet_research_agent. Just click on its tile to open the details view.
-
-![alt text](images/image29.png)
-
-We can test this agent right here in the preview, just like we did before when running locally. You can test it by entering, for example, the following text into the Preview tet field:
+We can continue to test with the following: 
 ```
 Can you show me market trends for the products shown in the image at https://i.imgur.com/WzMC1LJ.png
 ```
 
 ![alt text](images/image31.png)
 
-Assuming the results are satisfactory, let's deploy the agent by clicking on the `Deploy` button at the top right of the page.
 
-![alt text](images/image32.png)
+Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests.
 
-Note how in the following screen, the connections we are using are listed here. Click on `Deploy` again.
-
-![alt text](images/image43.png)
-
-Once the agent is deployed, go back to the `Manage agents` page by clicking on the associated link at the top of the page.
-
-![alt text](images/image33.png)
-
-Now repeat the same exercise with the `market_analyst_agent` and the `retail_market_agent`. However, for the `retail_market_agent`, you also need to add the two agents as collaborators, just like you did when using the ADK earlier.
-
-We won't show detailed steps and screenshots here, because we are confident that by now, you are an expert in navigating the tool. 
-
-![alt text](images/image44.png)
-
-Once you have deployed all three agents, they should all show the `Live` icon.
-
-![alt text](images/image34.png)
-
-Finally, let's go back to the homepage and run the solution there. On the homepage, make sure you have selected the `retail_market_agent` in the Agents drop-down list, since that is the agent we want the user to chat with.
-
-![alt text](images/image35.png)
-
-Remember that you control which agents show up in this list by checking or unchecking the `Show agent` flag in the agent details page.
-
-![alt text](images/image36.png)
-
-In the main chat window, let's enter the following prompt to see if the agents are working as expected. We'll simply reuse a prompt from our tests on the local instance.
-
-```
-Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
-```
-
-![alt text](images/image37.png)
-
-Feel free to run more experiments, switching the target environments the CLI is using between `local` and `wxo-saas` to see if the two environments behave differently. 
 
 ## (Optional) Headless Agent
 
@@ -768,23 +600,61 @@ In this section, we will use the agents above in a "headless" form. That is, the
 
 The example scenario we will walk through here is one where a new photo of a product shelf is taken, stored in a folder in the cloud, and the appearance of that file will trigger the agent to download the image and create rearrangement recommendations. And to make things practical, instead of uploading the picture to a cloud store, we will show you an application that watches a file folder on the local machine, and will invoke the agent running in the ADK locally whenever a new image file appears. The result of the agent's work, i.e. recommendations for how to rearrange the product shelf, will be stored in a text file.
 
+### Initial Set up
+
+Add the following to your .env.
+```
+WO_DEVELOPER_EDITION_SOURCE=myibm
+WO_ENTITLEMENT_KEY=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE3NjQ3MTMzMzAsImp0aSI6IjI1YTZlODUzMDk4NjQ4M2RiMmUyYWRmNDRlODQ4ZDQ3In0.AlW8O7stijF_AeR6_VHQrkzl3R1TEnX8740-SRiO8Hc
+```
+
+Run the following commmand to get watsonx Orchestrate running locally:
+```
+orchestrate server start -e .env
+```
+> You may have to run the above command twice!
+
+Then activate the local env in the ADK with:
+```
+orchestrate env activate local
+```
+
+Run the following commands to reimport the tools and connections.
+```
+chmod +x ./src/import-all.sh
+chmod +x ./src/set-credentials.sh
+./src/import-all.sh
+./src/set-credentials.sh
+```
+
+To finish setting up the local version, run the following command and click manage agents:
+```
+orchestrate chat start
+```
+![alt text](./assets/orchestrate-local-manage.png)
+
+Then add the necessary agents to the `retail_market_agent`.
+
+
 ### Code Walkthrough
 
  > Note: the code for the app is in the file [image_listener.py](./src/app/image_listener.py).
 
-To implement the headless agent, we need an application that calls the Retail Market Agent using the watsonx Orchestrate REST API, and specifically, the "Caht with Agents" API. You can see the spec for this API [here](https://developer.watson-orchestrate.ibm.com/apis/orchestrate-agent/chat-with-agents). 
+To implement the headless agent, we need an application that calls the Retail Market Agent using the watsonx Orchestrate REST API, and specifically, the "Chat with Agents" API. You can see the spec for this API [here](https://developer.watson-orchestrate.ibm.com/apis/orchestrate-agent/chat-with-agents). 
 
 For our app, we need three parameters:
 
 1. **The Bearer token**
 
 This token has to be sent as part of the header in the HTTP POST request. For a locally running ADK instance, you can find it in the `~/.cache/orchestrate/credentials.yaml` file, under `auth -> local -> wxo_mcsp_token`. 
-
+```
+cat ~/.cache/orchestrate/credentials.yaml
+```
 ![alt text](images/image45.png)
 
 Note in the screenshot that ths file has two tokens, one for the local environment and one for the SaaS environment that we set up in the previous section. We will only use the local one here. Since we are passing it to the application as a parameter later, you might want to copy it from the file into your clipboard, and then store it in an environment variable for later use.
 
-```export BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...```
+```export BEARER_TOKEN=eyJ...```
 
 2. **The agent ID**
 
@@ -799,8 +669,9 @@ We will pass this as a parameter as well, so copy it to the clipboard and from t
 3. **The target folder**
 
 As mentioned above, the app will watch for the creation of new image files in a specific local folder. With this parameter, you specify which folder you would like to use. The app will not only look for image files in that folder, it will put the reults of the agent invocation into a text file in a subfolder named `output`.
-
-```export TARGET_FOLDER=/Users/andretost/retail-images```
+```
+export TARGET_FOLDER=$(pwd)
+```
 
 At the start of the program, it will collect the input parameters passed in and store them in local variables for later use.
 
@@ -867,18 +738,18 @@ Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market tr
 So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interesed in here - through an HTTP GET request. The easiest way to do so is to simply run the following command in (a) a new command terminal (since it will be blocked), and (b) running the command below **in the target folder** where your images are going to be stored.
 
 ```
-python -m http.server 8001
+python -m http.server 8002
 ```
 
 ![alt text](images/image47.png)
 
-You can test it by opening a browser window with `localhost:8001` as the address. It should show a file listing of your target folder. We assume it is empty for now, but even if there are files in there, remember that we are looking only for new files in our program, any existing files will simply be ignored.
+You can test it by opening a browser window with `localhost:8002` as the address. It should show a file listing of your target folder. We assume it is empty for now, but even if there are files in there, remember that we are looking only for new files in our program, any existing files will simply be ignored.
 
 Another interesting element is that the tool that is interpreting the image is running inside the ADK instance, in a Docker container. Inside the container, the hostname "localhost" will not point to the hostname of your machine, it will be the container's local IP address. To reach the HTTP server we just started, we have to use the address `host.docker.internal`, because that maps to the hostname of your actual computer.
 
 ```
             try:
-                file_url = f"http://host.docker.internal:8001/{filename}"
+                file_url = f"http://host.docker.internal:8002/{filename}"
                 payload = {
                     "stream": False,
                     "messages": [
@@ -900,7 +771,7 @@ Another interesting element is that the tool that is interpreting the image is r
                 print(f"POST response: {status} - {text}")
 ```
 
-In the above, you see that we use the filename of the new file and append it to `http://host.docker.internal:8001`. That will allow the tool running inside the container to retrieve the file.
+In the above, you see that we use the filename of the new file and append it to `http://host.docker.internal:8002`. That will allow the tool running inside the container to retrieve the file.
 
 That URL is then inserted into the prompt as a variable. Otherwise this is the same prompt we would enter into the Chat UI, just in this case it is sent as a message within the REST call. The agent will start its work and return the result in the response message.
 
@@ -920,10 +791,13 @@ The returned message is embedded into a piece of text, and then saved into the o
 It's now time to run the application and test it! You have saved the three parameters it requires as environment variables above, so you can call it right away:
 
 ```
-python ./usecases/retail/src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_FOLDER --token $BEARER_TOKEN
+python ./src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_FOLDER --token $BEARER_TOKEN
 ```
 
-Now let's copy an image file into the target folder. You can use any of the files in the [./usecases/retail/src/app/images/](./src/app/images/) folder for this test. Copy an paste the file either using your File Explorer or run a `cp` command in a separate command terminal - either will do the trick.
+Now let's copy an image file into the target folder. You can use any of the files in the [./src/app/images/](./src/app/images/) folder for this test but we recommend to try `./images/shoes.png`. Copy an paste the file either using your File Explorer or run a `cp` command in a separate command terminal - either will do the trick.
+```
+cp ./images/shoes.png ./
+```
 
 ![alt text](images/image48.png)
 
