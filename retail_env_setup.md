@@ -86,7 +86,10 @@ The last step here is that we need to capture the Space GUID. You can find the G
 
 The Space GUID, as well as a number of other environment variables, goes into a file called `.env`. This file should exist in **the root folder** of where you extracted the content of the repo that was provided to you by your instructor (this file is also in that repo, of course), in other words, it should be at the same level as the `usecases` or `environment-setup` subfolders. 
 
-Start by copying the `.env.sample` provided to you into a .env file.
+Start by copying the `.env.sample` provided to you into a .env file with the following command:
+```
+cp .env.sample ./.env
+```
 
 - If you are running this on your local machine, you should have already unzipped the file with materials into a folder of your choosing, as described [above](#local-machine). Create an empty .env file and make sure you place the `.env` file in that same folder. 
 
