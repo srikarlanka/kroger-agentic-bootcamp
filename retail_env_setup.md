@@ -2,15 +2,18 @@
 - [Introduction](#introduction)
 - [Lab materials](#lab-materials)
   - [Local machine](#local-machine)
+  - [Windows Users](#windows-users)
+    - [IBM Bob](#ibm-bob)
 - [Environments](#environments)
   - [watsonx.ai](#watsonxai)
     - [The .env file](#the-env-file)
     - [API key](#api-key)
+    - [WXO Service URL](#wxo-service-url)
   - [watsonx Orchestrate ADK](#watsonx-orchestrate-adk)
-    - [Local machine](#local-machine-2)
+    - [Local machine](#local-machine-1)
   - [watsonx Orchestrate](#watsonx-orchestrate)
   - [Tavily](#tavily)
-  - [Service Now](#servicenow-set-up)
+  - [ServiceNow Set up](#servicenow-set-up)
 
 ## Introduction
 
@@ -47,7 +50,7 @@ Your instructor should have given you access to the instances of watsonx Orchest
 
 ![alt text](assets/image1.png)
 
-On the page with all your resources, you can find your watsonx.ai Runtime instance in the `AI / Machine Learning` section. The instance will have `watsonx Runtime in the Product column. Click on the name of the instance.
+On the page with all your resources, you can find your watsonx.ai Runtime instance in the `AI / Machine Learning` section. The instance will have `watsonx Runtime` in the Product column. Click on the name of the instance.
 
 ![alt text](assets/image2.png)
 
