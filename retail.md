@@ -445,7 +445,7 @@ https://<your-servicenow-instance>.com/oauth_token.do
 ```
 https://<your-servicenow-instance>.com/oauth_auth.do
 ```
-`Client ID` and `Client Secret` are from the steps you did earlier.
+`Client ID` and `Client Secret` are from the steps you did [earlier](./servicenow-setup.md).
 
 ![alt text](images/servicenow-connection-filled.png)
 
