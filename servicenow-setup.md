@@ -44,7 +44,7 @@ Choose **OAuth - Authorization code grant** from the connection type options.
 Fill in the required fields:
 
 - **Name**: Your application name
-- **Redirect URL**: https://us-south.watson-orchestrate.cloud.ibm.com/mfe_connectors/api/v1/agentic/oauth/_callback
+- **Redirect URL**: `https://us-south.watson-orchestrate.cloud.ibm.com/mfe_connectors/api/v1/agentic/oauth/_callback`
 - **Client ID**: Auto-generated (copy this before leaving)
 - **Client secret**: Auto-generated (copy this before leaving)
 - **Active**: Check to enable
