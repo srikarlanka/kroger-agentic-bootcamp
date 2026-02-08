@@ -654,8 +654,10 @@ orchestrate chat start
 ```
 ![alt text](./assets/orchestrate-local-manage.png)
 
-Then add the necessary agents to the `retail_market_agent`.
+---
+**Important**: Add the necessary agents to the `retail_market_agent`.
 
+---
 
 ### Code Walkthrough
 
