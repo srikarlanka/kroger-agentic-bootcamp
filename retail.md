@@ -26,7 +26,7 @@
     - [Additional Testing](#additional-testing)
   - [(Optional) Plug-ins/Guardrails](#optional-plug-insguardrails)
     - [Value Add: Complexity Adjustment](#value-add-complexity-adjustment)
-    - [Additional testing](#additional-testing-1)
+    - [Additional testing](#additional-testing-plug-ins)
   - [(Optional) Headless Agent](#optional-headless-agent)
     - [Initial Set up](#initial-set-up)
     - [Code Walkthrough](#code-walkthrough)
@@ -663,7 +663,7 @@ SAFE_EXTENSIONS = [r"\.png", r"\.jpg", r"\.jpeg", r"\.gif", r"\.webp"]
 * **To increase complexity:** You could refine the `url_pattern` regex to catch obfuscated links or strictly enforce exact domain matching to prevent sub-domain spoofing.
 * **To decrease complexity:** You could add wildcards to `SAFE_DOMAINS` (e.g., allowing `.*\.google\.com`) or remove the extension check to allow all content types from trusted sources.
 
-### Additional testing
+### Additional Testing (Plug-ins)
 
 Once everything is added and configured you can run the [Final Tests](#final-test-and-summary) again along with the below to see what changed.
 
