@@ -419,7 +419,7 @@ Search for ServiceNow in the search bar and scroll down to the Ticket Manager Ag
 Click on the Ticket Manager Agent and then click on Use as Template. These agents are ready to use agents that can also serve as templates if you need specific functionality within your connections, apps etc. For the purpose of this lab, we will not be editing this agent at all, however depending on your use case you can edit every single detail within this agent. 
 ![alt text](images/template.png)
 
-Click on Deploy and scroll down to Toolset. Click on the three dots next to the `Create a ticket in ServiceNow` and then `Edit details`
+Scroll down to Toolset. Click on the three dots next to the `Create a ticket in ServiceNow` and then `Edit details`
 
 ![alt text](images/orchestrate-tools-edit-details.png)
 
@@ -451,6 +451,13 @@ https://<your-servicenow-instance>.com/oauth_auth.do
 
 ![alt text](images/servicenow-connection-part-two.png)
 
+Once you saved them, re-open the connection details by clicking on the pencil. From here, select the `Live` option and click `Paste draft configuration`. 
+
+![alt text](./images/credentials-live-paste.png)
+
+Scroll down and click `Team credentials`, then `Connect`. Finally, `Save changes`.
+
+![alt text](./images/credentials-team-members.png)
 
 Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
 
@@ -542,7 +549,8 @@ In the following page, select the three agents we defined earlier as collaborato
 
 ![alt text](images/collab_agents.png)
 
-See how these agents have been added to the retail_market_agent. Remember that the instructions tell this agent when to involve them in addressing a task.
+Finally, click deploy to make your agent `live`:
+> Also see how these agents have been added to the retail_market_agent. Remember that the instructions tell this agent when to involve them in addressing a task.
 
 ![alt text](images/collab_agents_2.png)
 
