@@ -7,3 +7,4 @@ langchain-community
 requests
 python-dotenv
 pandas
+watchdog
