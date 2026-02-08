@@ -627,6 +627,15 @@ chmod +x ./src/set-credentials.sh
 ./src/set-credentials.sh
 ```
 
+To finish setting up the local version, run the following command and click manage agents:
+```
+orchestrate chat start
+```
+![alt text](./assets/orchestrate-local-manage.png)
+
+Then add the necessary agents to the `retail_market_agent`.
+
+
 ### Code Walkthrough
 
  > Note: the code for the app is in the file [image_listener.py](./src/app/image_listener.py).
@@ -638,7 +647,9 @@ For our app, we need three parameters:
 1. **The Bearer token**
 
 This token has to be sent as part of the header in the HTTP POST request. For a locally running ADK instance, you can find it in the `~/.cache/orchestrate/credentials.yaml` file, under `auth -> local -> wxo_mcsp_token`. 
-
+```
+cat ~/.cache/orchestrate/credentials.yaml
+```
 ![alt text](images/image45.png)
 
 Note in the screenshot that ths file has two tokens, one for the local environment and one for the SaaS environment that we set up in the previous section. We will only use the local one here. Since we are passing it to the application as a parameter later, you might want to copy it from the file into your clipboard, and then store it in an environment variable for later use.
@@ -658,8 +669,9 @@ We will pass this as a parameter as well, so copy it to the clipboard and from t
 3. **The target folder**
 
 As mentioned above, the app will watch for the creation of new image files in a specific local folder. With this parameter, you specify which folder you would like to use. The app will not only look for image files in that folder, it will put the reults of the agent invocation into a text file in a subfolder named `output`.
-
-```export TARGET_FOLDER=/Users/andretost/retail-images```
+```
+export TARGET_FOLDER=$(pwd)
+```
 
 At the start of the program, it will collect the input parameters passed in and store them in local variables for later use.
 
@@ -726,18 +738,18 @@ Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market tr
 So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interesed in here - through an HTTP GET request. The easiest way to do so is to simply run the following command in (a) a new command terminal (since it will be blocked), and (b) running the command below **in the target folder** where your images are going to be stored.
 
 ```
-python -m http.server 8001
+python -m http.server 8002
 ```
 
 ![alt text](images/image47.png)
 
-You can test it by opening a browser window with `localhost:8001` as the address. It should show a file listing of your target folder. We assume it is empty for now, but even if there are files in there, remember that we are looking only for new files in our program, any existing files will simply be ignored.
+You can test it by opening a browser window with `localhost:8002` as the address. It should show a file listing of your target folder. We assume it is empty for now, but even if there are files in there, remember that we are looking only for new files in our program, any existing files will simply be ignored.
 
 Another interesting element is that the tool that is interpreting the image is running inside the ADK instance, in a Docker container. Inside the container, the hostname "localhost" will not point to the hostname of your machine, it will be the container's local IP address. To reach the HTTP server we just started, we have to use the address `host.docker.internal`, because that maps to the hostname of your actual computer.
 
 ```
             try:
-                file_url = f"http://host.docker.internal:8001/{filename}"
+                file_url = f"http://host.docker.internal:8002/{filename}"
                 payload = {
                     "stream": False,
                     "messages": [
@@ -759,7 +771,7 @@ Another interesting element is that the tool that is interpreting the image is r
                 print(f"POST response: {status} - {text}")
 ```
 
-In the above, you see that we use the filename of the new file and append it to `http://host.docker.internal:8001`. That will allow the tool running inside the container to retrieve the file.
+In the above, you see that we use the filename of the new file and append it to `http://host.docker.internal:8002`. That will allow the tool running inside the container to retrieve the file.
 
 That URL is then inserted into the prompt as a variable. Otherwise this is the same prompt we would enter into the Chat UI, just in this case it is sent as a message within the REST call. The agent will start its work and return the result in the response message.
 
@@ -779,10 +791,13 @@ The returned message is embedded into a piece of text, and then saved into the o
 It's now time to run the application and test it! You have saved the three parameters it requires as environment variables above, so you can call it right away:
 
 ```
-python ./usecases/retail/src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_FOLDER --token $BEARER_TOKEN
+python ./src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_FOLDER --token $BEARER_TOKEN
 ```
 
-Now let's copy an image file into the target folder. You can use any of the files in the [./usecases/retail/src/app/images/](./src/app/images/) folder for this test. Copy an paste the file either using your File Explorer or run a `cp` command in a separate command terminal - either will do the trick.
+Now let's copy an image file into the target folder. You can use any of the files in the [./src/app/images/](./src/app/images/) folder for this test but we recommend to try `./images/shoes.png`. Copy an paste the file either using your File Explorer or run a `cp` command in a separate command terminal - either will do the trick.
+```
+cp ./images/shoes.png ./
+```
 
 ![alt text](images/image48.png)
 
