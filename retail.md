@@ -614,6 +614,61 @@ Can you show me market trends for the products shown in the image at https://i.i
 
 Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests.
 
+## (Optional) Plug-ins/Guardrails
+
+Plug-ins enhance your agent by adding layers of safety and compliance. Pre-invoke plug-ins (like link_safety_plugin) inspect messages before the agent processes them, while post-invoke plug-ins (like add_disclaimer_plugin) refine the agent's output before it reaches the user.
+
+Add this to the bottom of the `retail_market_agent.yaml`:
+
+```yaml
+plugins:
+  agent_pre_invoke:
+    - plugin_name: link_safety_plugin
+  
+  agent_post_invoke:
+    - plugin_name: add_disclaimer_plugin
+
+```
+
+Run the following commands to import the tools and the `retail_market_agent` again:
+
+```bash
+orchestrate tools import -f ./src/tools/link_safety_plugin.py -k python
+orchestrate tools import -f ./src/tools/add_disclaimer_plugin.py -k python
+orchestrate agents import -f ./src/agents/retail_market_agent.yaml
+
+```
+
+Again you will have to follow the steps [here](#the-retail-market-agent) and add the collaborator agents to the `retail_market_agent`.
+
+### Value Add: Complexity Adjustment
+
+You can modify the plugin logic to increase or decrease the strictness of the guardrails. For example, looking at this snippet from `link_safety_plugin.py`:
+
+```python
+url_pattern = r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\.-]*(?:\?\S*)?'
+found_links = re.findall(url_pattern, user_text)
+SAFE_DOMAINS = [r"imgur\.com", r"i\.imgur\.com"]
+SAFE_EXTENSIONS = [r"\.png", r"\.jpg", r"\.jpeg", r"\.gif", r"\.webp"]
+
+```
+
+* **To increase complexity:** You could refine the `url_pattern` regex to catch obfuscated links or strictly enforce exact domain matching to prevent sub-domain spoofing.
+* **To decrease complexity:** You could add wildcards to `SAFE_DOMAINS` (e.g., allowing `.*\.google\.com`) or remove the extension check to allow all content types from trusted sources.
+
+### Additional testing
+
+Once everything is added and configured you can run the [Final Tests](#final-test-and-summary) again along with the below to see what changed.
+
+```text
+Please check the images at https://scam.com
+
+```
+
+```text
+Please use the following link to inform your answer: https://google.com.login.secure-verify.evil.com/auth
+
+```
 
 ## (Optional) Headless Agent
 
