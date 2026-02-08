@@ -192,7 +192,7 @@ environments:
         kind: kv
         type: team
 ```
-Note that the YAML defines two `environments`, namely `draft` and `live`. This allows setting credentials for different environments to different values. When using the ADK locally, there is only one environment supported, namely `draft`. The other definition will be ignored. However, we will need the `live` environment when uploading the solution to a remote SaaS instance (which is covered [further below](#optional-uploading-the-solution-to-a-watsonx-orchestrate-saas-instance)), so we have included it into the file.
+Note that the YAML defines two `environments`, namely `draft` and `live`. This allows setting credentials for different environments to different values. When using the ADK locally, there is only one environment supported, namely `draft`. The other definition will be ignored. However, we will need the `live` environment when uploading the solution to a remote SaaS instance and deploying the agent, so we have included it into the file.
 
 ### Optional 
 #### (if you haven't set up your ADK and activated your environment during this [step](./retail_env_setup.md/#watsonx-orchestrate-adk)):
