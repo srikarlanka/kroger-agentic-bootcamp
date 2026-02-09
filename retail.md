@@ -17,9 +17,9 @@
   - [The agents](#the-agents)
     - [Agent_naming_convention](#agent-naming-convention)
     - [The Internet Research Agent](#the-internet-research-agent)
+    - [The Ticket Manager](#the-ticket-manager-agent)
     - [The Market Analyst Agent](#the-market-analyst-agent)
     - [The Retail Market Agent](#the-retail-market-agent)
-    - [The Ticket Manager](#the-ticket-manager-agent)
   - [Final test and Summary](#final-test-and-summary)
     - [Additional Testing](#additional-testing)
   - [(Optional) Headless Agent](#optional-headless-agent)
@@ -262,7 +262,7 @@ orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAV
 
 The final steps are to import the `live` configurations of the connections and import the `tool`:
 
-Configuring the live script:
+To configure the live connections of the agent in an automated way, run the following bash script for `draft` and `live` in one go:
 ```
 chmod +x ./src/set-credentials.sh
 ./src/set-credentials.sh
@@ -686,6 +686,8 @@ orchestrate env activate local
 ```
 
 Run the following commands to reimport the tools and connections.
+> This is the same as the previous commands you ran throughout the lab, just in an automated bash script that first imports connections, then tools, then agents, and finally set's their credentials.
+
 ```
 chmod +x ./src/import-all.sh
 chmod +x ./src/set-credentials.sh
