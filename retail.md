@@ -643,9 +643,9 @@ the resolution steps are below
 ```
 wsl -d ibm-watsonx-orchestrate
 ```
-Backup current DNS config
+2. Backup current DNS config
 ```
-2. sudo cp /etc/resolv.conf /etc/resolv.conf.backup
+sudo cp /etc/resolv.conf /etc/resolv.conf.backup
 ```
 
 3. Remove the file
