@@ -647,6 +647,8 @@ orchestrate server start -e .env
 ```
 > You may have to run the above command twice!
 
+**Note**
+
 For Windows, users if you face an issue beginning with the following...
 "WSL command failed: ['wsl', '-d', 'ibm-watsonx-orchestrate', '-u', 'orchestrate', '--', 'docker', 'compose', '-f',...]",
 the resolution steps are below
