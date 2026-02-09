@@ -262,7 +262,7 @@ orchestrate connections set-credentials -a tavily --env "draft" -e "apikey=${TAV
 
 The final steps are to import the `live` configurations of the connections and import the `tool`:
 
-To configure the live connections of the agent in an automated way, run the following bash script for `draft` and `live` in one go:
+To configure the live connections of the agent in an automated way, run the following bash script to set the `draft` and `live` credentials in one go:
 ```
 chmod +x ./src/set-credentials.sh
 ./src/set-credentials.sh
