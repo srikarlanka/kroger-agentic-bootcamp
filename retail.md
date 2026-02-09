@@ -232,7 +232,7 @@ The required import statements are already filled into the file. Note how it dec
 The tool contains one function called web_search. In the @tool declaration, add the definition of the connection so that it is available in the body of the function.
 The function itself should leverage the [langchain.community.tools.tavily_search.tool.TavilysearchResults](https://python.langchain.com/api_reference/community/tools/langchain_community.tools.tavily_search.tool.TavilySearchResults.html) class to execute the actual search.
 
-Feel free to add a "\_\_main\_\_" function for testing, again using the image description tool as an example for what that looks like. You can ask a random question locally to test out the Tavily websearch. Note that the raw output in terminal will be in JSON format. The LLM will take care of the formatting when chatting through the agent.
+Feel free to add a "\_\_main\_\_" function for testing, again using the image description tool as an example for what that looks like. You can also ask a simple question locally to verify that the Tavily web search integration is working. Keep in mind that the terminal will return raw JSON output,but formatting will be handled automatically by the LLM when interacting through the agent.
 
 ```
 python ./src/tools/web_search.py --input "Where is Kroger's headquarter located?" 
