@@ -232,7 +232,11 @@ The required import statements are already filled into the file. Note how it dec
 The tool contains one function called web_search. In the @tool declaration, add the definition of the connection so that it is available in the body of the function.
 The function itself should leverage the [langchain.community.tools.tavily_search.tool.TavilysearchResults](https://python.langchain.com/api_reference/community/tools/langchain_community.tools.tavily_search.tool.TavilySearchResults.html) class to execute the actual search.
 
-Feel free to add a "\_\_main\_\_" function for testing, again using the image description tool as an example for what that looks like. 
+Feel free to add a "\_\_main\_\_" function for testing, again using the image description tool as an example for what that looks like. You can ask a random question locally to test out the Tavily websearch. Note that the raw output in terminal will be in JSON format. The LLM will take care of the formatting when chatting through the agent.
+
+```
+python ./src/tools/web_search.py --input "Where is Kroger's headquarter located?" 
+```
 
 Once you have verified that the code is working as expected, we can import the tool into watsonx Orchestrate. However, before we do so, we need to create yet another `Connection` object, namely one that contains the Tavily API key. The details of that connection are stored in the [tavily.yaml](./src/connections/tavily.yaml) file:
 ```
@@ -321,7 +325,7 @@ On the page with all your resources, you can find your watsonx Orchestrate insta
 
 ![alt text](./assets/ibm-cloud-resources-orchestrate.png)
 
-Then click on the `Launch watsonx Orchestrate` button.
+ `Launch watsonx Orchestrate` button.
 
 Now click on the Hamburger menu near the top left of the screen and then `Build`.
 
@@ -332,6 +336,10 @@ The Internet Research Agent assists with identifying market trends for all produ
 ![alt text](images/image3.png)
 
 Click on `Create`.
+
+You may see a notice indicating that the llama‑3.2‑90b‑vision‑instruct model is deprecated. Although you can switch to GTP‑OSS, remember that each model has its own preferred prompt structure. This lab was designed and validated using the llama models, so we recommend using the same model throughout the exercises to ensure consistent and expected results.
+
+![alt text](images/model-notice.png)
 
 On the next page, scroll down to the `Toolsets` section and click on `Add tool`.
 
