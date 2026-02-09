@@ -15,6 +15,7 @@
       - [Importing the tool](#importing-the-tool)
     - [Web search tool](#web-search-tool)
   - [The agents](#the-agents)
+    - [Agent_naming_convention](#the-agent-naming-convention)
     - [The Internet Research Agent](#the-internet-research-agent)
     - [The Market Analyst Agent](#the-market-analyst-agent)
     - [The Retail Market Agent](#the-retail-market-agent)
