@@ -545,7 +545,7 @@ In the following dialog, select `Add from local instance`.
 
 ![alt text](images/image40.png)
 
-In the following page, select the three agents we defined earlier as collaborators, by checking the box next to them. Then click on `Add to agent`.
+In the following page, select the three agents we defined earlier as collaborators by checking the box next to them. Then click on `Add to agent`.
 
 ![alt text](images/collab_agents.png)
 
