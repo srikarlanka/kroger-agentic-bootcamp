@@ -172,6 +172,15 @@ source .venv/bin/activate
 ```
 
 ##### Windows Setup
+###### Step 1: Install uv
+```
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex
+```
+###### Step 2: Set up uv venv
+```
+uv venv --python 3.11
+.venv\Scripts\activate
+```
 
 
 > If you'd like to to update your python version, or have different configurations, follow the steps [here](https://developer.watson-orchestrate.ibm.com/getting_started/installing) until you install the ibm-watsonx-orchestrate package.
