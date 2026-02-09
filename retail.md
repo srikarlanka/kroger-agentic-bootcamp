@@ -637,26 +637,28 @@ orchestrate server start -e .env
 
 For Windows, users if you face an issue beginning with the following...
 "WSL command failed: ['wsl', '-d', 'ibm-watsonx-orchestrate', '-u', 'orchestrate', '--', 'docker', 'compose', '-f',...]",
-steps are below to fix the WSL DNS Resolution
+the resolution steps are below
+
+1. fix WSL DNS Resolution
 ```
 wsl -d ibm-watsonx-orchestrate
 ```
 Backup current DNS config
 ```
-sudo cp /etc/resolv.conf /etc/resolv.conf.backup
+2. sudo cp /etc/resolv.conf /etc/resolv.conf.backup
 ```
 
-Remove the file
+3. Remove the file
 ```
 sudo rm /etc/resolv.conf
 ```
 
-Create new DNS config with IBM/corporate DNS
+4. Create new DNS config with IBM/corporate DNS
 ```
 sudo nano /etc/resolv.conf
 ```
 
-Paste this inside the file
+5. Paste this inside the file
 ```
 nameserver 9.0.128.50
 nameserver 9.0.130.50
