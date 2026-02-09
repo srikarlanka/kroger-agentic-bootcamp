@@ -477,7 +477,8 @@ Scroll down and click `Team credentials`, then `Connect`. Finally, `Save changes
 ![alt text](./images/credentials-team-members.png)
 
 Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
-
+ 
+> For testing in the preview mode, you can use your credentials in Member credentials mode for local testing. However, for deployed agents you would need team credentials. The reason for this is that the permission for interaction for the ticket manager agent would be to anyone who has permission to create tickets in servicenow and hence you need a more universal connection for a single service now instance. The team credentails for the lab will be provided to you by your instructor during the lab.
 
 ### The Market Analyst Agent
 
@@ -510,7 +511,7 @@ Once imported, we can see and test the agent in the UI. Go back to your browser 
 
 ![alt text](images/image9.png)
 
-The new agent is now listed next to the first two agents we deployed. Instad of testing this new agent individually, we will go ahead and define (and then test) the supervisory agent that puts it all together.
+The new agent is now listed next to the first two agents we deployed. Instead of testing this new agent individually, we will go ahead and define (and then test) the supervisory agent that puts it all together.
 
 ![alt text](images/image10.png)
 
@@ -571,6 +572,20 @@ Finally, click deploy to make your agent `live`:
 
 ![alt text](images/collab_agents_2.png)
 
+## Set Monitoring for Retail Market Agent
+
+After clicking on "Deploy" for the retail_market_agent, you should see a pop up asking you to activate monitoring. Click the "Activate Agent Monitoring" option.
+![alt text](images/activate_monitoring.png)
+
+Now click on the hamburger menu on the top left and select "Analyze".
+![alt text](images/analyze.png)
+
+Once on the Agent analytics page, search for the "retail_market_agent" if it doesn't appear on the visible list.
+![alt text](images/analytics.png)
+
+Click on the Blue Dashboard icon on the right end of the retail_market_agent row. This will take you to the agent analytics dashboard of the agent you just deployed. Note: You can also activate monitoring for any other live agent via the toggle button in the "Monitor column"
+![alt text](images/dashboard_icon.png)
+
 ## Final test and Summary
 
 Since you have successfully created all the tools and agents you needed, you can finally test the solution end to end. We want end users to only interact with the supervisory agent, so we will turn the `Show agent` flag off for both the internet_research_agent and the market_analysis_agent. To do so, go to the details page for the internet_research_agent, scroll down to the very bottom and turn off the switch.
@@ -599,12 +614,17 @@ Response to What priority would you like for the ticket?
 ```
 1
 ```
-This should have created a service now ticket for the recall notice in the instance you connected with the ticket manager.
-
 ![alt text](images/chat_final.png)
+This should have created a service now ticket for the recall notice in the instance you connected with the ticket manager.
+You can ask the agent to show you all the tickets in ServiceNow to confirm if the ticket was created by entering the following:
+```
+Give me a list of all the open tickets on ServiceNow.
+```
+Note, we didn't actually create a tool or prompt the agent to fetch the ServiceNow tickets. This capability was actually created through a preloaded tool in the Ticket Manager agent. You can edit the behaviour of the ticket manager as well as retail market agent to use more tools from the ticket manager agent efficiently.
+To view the ticket on service now instance navigate to `https://<servicenow_id>.service-now.com/ticket_list.do` where the servicenow_id is your PDI available on your service now landing page (after log in)
+![alt text](images/snow_pdi.png)
 
-
-Let's continue testing with: 
+Now, let's continue testing with: 
 
 ```
 Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
