@@ -149,13 +149,32 @@ As mentioned above, the ADK allows hosting the core Orchestrate components on a 
 To run it on your own laptop, you need to install:
 - Python 3.11 + 
 - IBM Bob (or similar editor)
-> We recommend using a venv, if needed you can use either `python -m venv .venv` or `brew install uv` -> `uv venv`
 
-First check your python version with:
+For initial setup, we recommend the following steps, but if you want to use a different virtual environment manager please refer to the steps here: [the ADK install page](https://developer.watson-orchestrate.ibm.com/getting_started/installing)
+
+##### Mac Setup
+###### Step 1: Install homebrew
 ```
-python --version
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-> If you need to update your python version, follow the steps [here](https://developer.watson-orchestrate.ibm.com/getting_started/installing) until you install the ibm-watsonx-orchestrate package.
+###### Step 2: Install uv with either:
+```
+brew install uv
+```
+or directly with a curl command:
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+###### Step 3: Set up uv venv:
+```
+uv venv --python 3.11
+source .venv/bin/activate
+```
+
+##### Windows Setup
+
+
+> If you'd like to to update your python version, or have different configurations, follow the steps [here](https://developer.watson-orchestrate.ibm.com/getting_started/installing) until you install the ibm-watsonx-orchestrate package.
 
 Then run the following to install the ADK:
 ```
