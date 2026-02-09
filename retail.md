@@ -477,7 +477,8 @@ Scroll down and click `Team credentials`, then `Connect`. Finally, `Save changes
 ![alt text](./images/credentials-team-members.png)
 
 Now you have a prebuilt catalog agent that you would be using along with the other Agents we create for this usecase.
-
+ 
+> For testing in the preview mode, you can use your credentials in Member credentials mode for local testing. However, for deployed agents you would need team credentials. The reason for this is that the permission for interaction for the ticket manager agent would be to anyone who has permission to create tickets in servicenow and hence you need a more universal connection for a single service now instance. The team credentails for the lab will be provided to you by your instructor during the lab.
 
 ### The Market Analyst Agent
 
