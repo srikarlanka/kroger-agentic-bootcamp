@@ -635,6 +635,35 @@ orchestrate server start -e .env
 ```
 > You may have to run the above command twice!
 
+For Windows, users if you face an issue beginning with the following...
+"WSL command failed: ['wsl', '-d', 'ibm-watsonx-orchestrate', '-u', 'orchestrate', '--', 'docker', 'compose', '-f',...]",
+steps are below to fix the WSL DNS Resolution
+```
+wsl -d ibm-watsonx-orchestrate
+```
+# Backup current DNS config
+```
+sudo cp /etc/resolv.conf /etc/resolv.conf.backup
+```
+
+# Remove the file
+```
+sudo rm /etc/resolv.conf
+```
+
+# Create new DNS config with IBM/corporate DNS
+```
+sudo nano /etc/resolv.conf
+```
+
+Paste this inside the file
+```
+nameserver 9.0.128.50
+nameserver 9.0.130.50
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+```
+
 Then activate the local env in the ADK with:
 ```
 orchestrate env activate local
