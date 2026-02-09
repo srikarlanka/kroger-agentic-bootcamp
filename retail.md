@@ -325,7 +325,7 @@ Then click on the `Launch watsonx Orchestrate` button.
 
 Now click on the Hamburger menu near the top left of the screen and then `Build`.
 
-In the next window, click the `Create agent` button and select the `Create from scratch` option. Enter "internet_research_agent" as the name of the new agent, and enter the following description:
+In the next window, click the `Create agent` button and select the `Create from scratch` option. Enter "internet_research_agent_{your_initials}" as the name of the new agent, and enter the following description:
 ```
 The Internet Research Agent assists with identifying market trends for all products that can be found on images. If asked for recall information about products, it also assists with identifying active recall notices on products mentioned or found on images.
 ```
@@ -418,7 +418,7 @@ We can now export the metadata for this agent into a YAML file. This allows us t
 In the example above, the name of the agent is `internet_research_agent_9292aQ`.
 To export, simply enter the following command on the command line (replace the name of the agent after the '-n' parameter with the name of your agent):
 ```
-orchestrate agents export -n internet_research_agent_9292aQ -k native --agent-only -o internet_research_agent.yaml
+orchestrate agents export -n internet_research_agent_9292aQ -k native --agent-only -o internet_research_agent_{your_initials}.yaml
 ```
 Feel free to study the content of the created YAML file. It has all the same content as what we typed into the Agent Builder UI before. Another interesting detail is the `llm` section. It shows which model is being used by this agent. If the agent you are creating does not perform to your satisfaction, you may want to try a different model.
 
@@ -503,7 +503,7 @@ Note that the `instructions` section has a similar structure to the one in the i
 
 We can import the agent into our watsonx Orchestrate instance by entering the following command:
 ```
-orchestrate agents import -f ./src/agents/market_analyst_agent.yaml
+orchestrate agents import -f ./src/agents/market_analyst_agent_{your_initials}.yaml
 ```
 
 Once imported, we can see and test the agent in the UI. Go back to your browser and click on the `Manage agents` link.
@@ -547,7 +547,7 @@ Note how the 'Key Instruction' section contains details about how to use other a
 
 We import this agent just like the previous one:
 ```
-orchestrate agents import -f ./src/agents/retail_market_agent.yaml
+orchestrate agents import -f ./src/agents/retail_market_agent_{your_initials}.yaml
 ```
 
 Back in the `Manage agents` view in the UI, you can reload the page and see the new agent listed next to the other ones.
