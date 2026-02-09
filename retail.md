@@ -510,7 +510,7 @@ Once imported, we can see and test the agent in the UI. Go back to your browser 
 
 ![alt text](images/image9.png)
 
-The new agent is now listed next to the first two agents we deployed. Instad of testing this new agent individually, we will go ahead and define (and then test) the supervisory agent that puts it all together.
+The new agent is now listed next to the first two agents we deployed. Instead of testing this new agent individually, we will go ahead and define (and then test) the supervisory agent that puts it all together.
 
 ![alt text](images/image10.png)
 
@@ -613,12 +613,17 @@ Response to What priority would you like for the ticket?
 ```
 1
 ```
-This should have created a service now ticket for the recall notice in the instance you connected with the ticket manager.
-
 ![alt text](images/chat_final.png)
+This should have created a service now ticket for the recall notice in the instance you connected with the ticket manager.
+You can ask the agent to show you all the tickets in ServiceNow to confirm if the ticket was created by entering the following:
+```
+Give me a list of all the open tickets on ServiceNow.
+```
+Note, we didn't actually create a tool or prompt the agent to fetch the ServiceNow tickets. This capability was actually created through a preloaded tool in the Ticket Manager agent. You can edit the behaviour of the ticket manager as well as retail market agent to use more tools from the ticket manager agent efficiently.
+To view the ticket on service now instance navigate to `https://<servicenow_id>.service-now.com/ticket_list.do` where the servicenow_id is your PDI available on your service now landing page (after log in)
+![alt text](images/snow_pdi.png)
 
-
-Let's continue testing with: 
+Now, let's continue testing with: 
 
 ```
 Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
