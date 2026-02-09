@@ -641,17 +641,17 @@ steps are below to fix the WSL DNS Resolution
 ```
 wsl -d ibm-watsonx-orchestrate
 ```
-# Backup current DNS config
+Backup current DNS config
 ```
 sudo cp /etc/resolv.conf /etc/resolv.conf.backup
 ```
 
-# Remove the file
+Remove the file
 ```
 sudo rm /etc/resolv.conf
 ```
 
-# Create new DNS config with IBM/corporate DNS
+Create new DNS config with IBM/corporate DNS
 ```
 sudo nano /etc/resolv.conf
 ```
