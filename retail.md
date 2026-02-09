@@ -290,6 +290,18 @@ We will create four agents to implement this use case:
 Each agent will be defined inside a YAML file that we can easily import into watsonx Orchestrate for testing, but we will also take you through the UI-based Agent Builder tool.
 
 
+## Agent naming convention 
+To ensure that all agents each lab participant imports are identifiable, please add "_{your_initials}" to the end of each agent YAML file. 
+You can find each of your three agent YAML files by navigating within your root directory -> sub folder src -> sub folder agents. (src/agents is the relative path)
+Right click on each file and select "Rename".
+
+Example naming convention: 
+Name of lab participant: John Doe
+internet_research_agent.yaml -> internet_research_agent_jd.yaml
+market_analyst_agent.yaml -> market_analyst_agent_jd.yaml
+retail_market_agent.yaml -> retail_market_agent_jd.yaml
+
+
 ### The Internet Research Agent
 
 This agent will leverage both tools we defined and imported earlier to help answer requests. The main intended use of this agent is to take an image of a product shelf as input, and return both a description of the displayed products as well as related market trends to the user. The first part uses the image to text tool, the second part uses the web search tool.
