@@ -604,14 +604,6 @@ Feel free to explore further, by changing descriptions and instructions, to see 
 
 ### Additional Testing
 
-We can continue to test with the following: 
-```
-Can you show me market trends for the products shown in the image at https://i.imgur.com/WzMC1LJ.png
-```
-
-![alt text](images/image31.png)
-
-
 Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests.
 
 
