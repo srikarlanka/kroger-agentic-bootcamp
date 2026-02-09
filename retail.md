@@ -569,21 +569,8 @@ Note how in the main window, you are only offered two agents to chat with, namel
 ![alt text](images/image15.png)
 
 Make sure you have the retail_market_agent selected for the chat. Let's test the agent by entering the following into the chat:
-```
-Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
-```
 
-![alt text](images/image16.png)
-
-Voila! The supervisory agent used the collaborator agents to answer the user's question. One of the collaborator agents, namely the internet_research_agent, used two tools to convert the image into text and then do a web search for market trends.
-Here are a couple more questions you can ask the agent:
-```
-Please look at the image at https://i.imgur.com/WzMC1LJ.png, and give me current market trends based on the products shown in the image. Based on those trends, can you make recommendations for the rearrangement of the products on the shelf?
-```
-```
-How should the products shown in this image (https://i.imgur.com/Pb2Ywxv.jpeg) be rearranged given current market trends?
-```
-Let's do a two agent invoking flow:
+Let's start with a two agent flow:
 ```
 Check if there is a recall notice on Spring & Mulberry chocolates?
 ```
@@ -599,12 +586,28 @@ This should have created a service now ticket for the recall notice in the insta
 
 ![alt text](images/chat_final.png)
 
-Feel free to explore further, by changing descriptions and instructions, to see what the impact on the solution is.
+
+Let's continue testing with: 
+
+```
+Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
+```
+
+![alt text](images/image16.png)
+
+Voila! The supervisory agent used the collaborator agents to answer the user's question. One of the collaborator agents, namely the internet_research_agent, used two tools to convert the image into text and then do a web search for market trends.
+Here are a couple more questions you can ask the agent:
+```
+Please look at the image at https://i.imgur.com/WzMC1LJ.png, and give me current market trends based on the products shown in the image. Based on those trends, can you make recommendations for the rearrangement of the products on the shelf?
+```
+```
+How should the products shown in this image (https://i.imgur.com/Pb2Ywxv.jpeg) be rearranged given current market trends?
+```
 
 
 ### Additional Testing
 
-Feel free to run more experiments, testing to see how the different agents respond to different wordings of questions or requests.
+Feel free to run more experiments and explore further. You can start by testing to see how the different agents respond to different wordings of questions or by changing descriptions and instructions, to see what the impact on the solution is.
 
 
 ## (Optional) Headless Agent
