@@ -1,0 +1,31 @@
+product_id,sku,name,category,price,stock_qty,reorder_level,supplier,region,release_date,profit_margin_percent
+PRD-51111,TGM-MSE-001,TechGear Pro Mouse,Peripherals,49.99,145,50,Williams Ltd,APAC,2024-03-01,0.35
+PRD-72418,OFX-DSK-002,OfficeXpert Standing Desk,Furniture,399.99,42,20,Villegas Inc,LATAM,2023-06-27,0.28
+PRD-90933,DGTL-TAB-003,DigiTab Ultra 10-inch,Computing,649.99,85,25,Frye Delgado and Lowery,APAC,2024-05-14,0.32
+PRD-78939,SMRT-TAB-004,SmartPad Essential 8-inch,Computing,299.99,18,15,Dorsey-Thompson,EMEA,2022-12-13,0.30
+PRD-84692,LINK-CBL-005,LinkCord USB-C 6ft,Accessories,12.99,850,200,Mcmillan Freeman and Novak,EMEA,2024-10-23,0.55
+PRD-24184,ECHO-SPK-006,EchoWave Portable Speaker,Audio,89.99,120,30,Moreno-Roach,EMEA,2021-05-08,0.42
+PRD-23480,APEX-LAP-007,ApexBook Pro 15-inch,Computing,1299.00,45,15,Smith-Freeman,LATAM,2021-12-23,0.25
+PRD-87940,VOIC-MIC-008,VoicePro Studio Microphone,Audio,129.99,95,25,Turner and Sons,LATAM,2023-08-29,0.38
+PRD-56178,VIZN-WEB-009,ViznCam HD 1080p,Video,79.99,210,50,Thompson Robinson and Reyes,EMEA,2024-02-09,0.45
+PRD-93365,TYPE-KEY-010,TypeMaster Mechanical Keyboard,Peripherals,149.99,78,30,Hoffman and Sons,APAC,2022-08-25,0.36
+PRD-31890,LUMX-LGT-011,LumaXpert Smart Bulb,Accessories,24.99,320,100,Miller PLC,NA,2024-05-28,0.52
+PRD-93571,FLEX-LAP-012,FlexBook Air 14-inch,Computing,699.99,62,20,Pope and Sons,APAC,2024-07-11,0.27
+PRD-90258,STRM-MIC-013,StreamVoice Condenser Microphone,Audio,199.99,55,15,Martin Cochran and Robinson,EMEA,2025-11-14,0.40
+PRD-29478,NETZ-RTR-014,NetZone Dual-Band Router,Networking,149.99,88,25,Mendez Ltd,APAC,2024-09-25,0.33
+PRD-19955,SONO-HDP-015,SonoWave Noise-Canceling Headphones,Audio,249.99,165,40,Castillo-Murphy,LATAM,2025-02-22,0.38
+PRD-44115,CORE-LAP-016,CoreBook Standard 15-inch,Computing,549.99,72,25,Alvarez Ltd,LATAM,2025-09-23,0.26
+PRD-22094,TUNE-HDP-017,TuneMax Wireless Headphones,Audio,119.99,135,35,Fernandez and Sons,APAC,2024-01-25,0.41
+PRD-68440,MECH-KEY-018,MechType RGB Keyboard,Peripherals,89.99,92,30,Johnson Ramos and Gould,APAC,2025-03-29,0.37
+PRD-32474,SNAP-CAM-019,SnapView DSLR Camera,Video,499.99,34,10,Mendoza Ford and Michael,APAC,2023-10-05,0.29
+PRD-98201,PREC-MSE-020,PrecisionClick Gaming Mouse,Peripherals,39.99,285,75,Fowler Rosario and Sloan,EMEA,2025-11-26,0.48
+PRD-59042,AURA-HDP-021,AuraSound Premium Headphones,Audio,349.99,125,30,Coleman PLC,APAC,2024-02-15,0.35
+PRD-66788,RIZE-STD-022,RizeDesk Laptop Stand,Accessories,44.99,180,50,Miranda-Hall,LATAM,2022-08-24,0.50
+PRD-83775,PWRX-CBL-023,PowerXtend Cable 10ft,Accessories,15.99,620,150,King Inc,NA,2024-09-06,0.58
+PRD-68132,VIZN-MON-024,ViznView 27-inch Monitor,Displays,399.99,55,20,Schroeder Group,EMEA,2024-11-05,0.31
+PRD-88762,SHLD-CSE-025,ShieldCase Protective Cover,Accessories,29.99,410,100,Gonzalez Ross and Hubbard,EMEA,2025-04-23,0.54
+PRD-24313,ELEV-STD-026,ElevaPro Adjustable Stand,Accessories,39.99,195,50,Fleming Wilson and Burton,LATAM,2024-03-01,0.51
+PRD-53899,HDLK-CBL-027,HDLink Premium Cable 6ft,Accessories,19.99,540,125,Taylor PLC,EMEA,2022-07-25,0.56
+PRD-37875,BASX-HDP-028,BasXpert Studio Headphones,Audio,299.99,68,20,Harris Smith and Reid,EMEA,2024-04-06,0.36
+PRD-41366,CAST-MIC-029,CastPro Dynamic Microphone,Audio,99.99,105,25,Gilbert Koch and Clements,APAC,2023-10-05,0.43
+PRD-53113,WORK-DSK-030,WorkFlow Ergonomic Desk,Furniture,449.99,38,15,Smith and Sons,EMEA,2022-02-23,0.27

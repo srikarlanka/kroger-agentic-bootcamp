@@ -1,0 +1,101 @@
+,bill_id,customer_id,customer_name,email,bill_month,bill_amount,payment_method,paid_date
+0,BIL-41473,CUS-00001,Jane Doe,jane.doe@company.com,2025-12,865.85,Credit Card,2025-12-15
+1,BIL-60644,CUS-00001,Jane Doe,jane.doe@company.com,2025-11,899.63,Credit Card,2025-11-12
+2,BIL-88655,CUS-00001,Jane Doe,jane.doe@company.com,2025-10,877.07,Credit Card,2025-10-18
+3,BIL-79967,CUS-00001,Jane Doe,jane.doe@company.com,2025-09,895.18,Credit Card,2025-09-14
+4,BIL-22141,CUS-00001,Jane Doe,jane.doe@company.com,2025-08,810.47,Credit Card,2025-08-20
+5,BIL-16225,CUS-00002,John Doe,john.doe@company.com,2025-12,1140.98,ACH,2025-12-10
+6,BIL-50833,CUS-00002,John Doe,john.doe@company.com,2025-11,1314.63,ACH,2025-11-08
+7,BIL-24921,CUS-00002,John Doe,john.doe@company.com,2025-10,1307.29,ACH,2025-10-11
+8,BIL-89582,CUS-00002,John Doe,john.doe@company.com,2025-09,1153.58,ACH,2025-09-09
+9,BIL-76026,CUS-00002,John Doe,john.doe@company.com,2025-08,1305.8,ACH,2025-08-13
+10,BIL-66208,CUS-36778,Sandra Walters,sandra.walters@company.com,2025-12,1229.78,Wire Transfer,2025-12-22
+11,BIL-50518,CUS-36778,Sandra Walters,sandra.walters@company.com,2025-11,1243.03,Wire Transfer,2025-11-25
+12,BIL-74150,CUS-36778,Sandra Walters,sandra.walters@company.com,2025-10,1281.85,Wire Transfer,2025-10-20
+13,BIL-35039,CUS-36778,Sandra Walters,sandra.walters@company.com,2025-09,1164.1,Wire Transfer,2025-09-18
+14,BIL-17063,CUS-36778,Sandra Walters,sandra.walters@company.com,2025-08,1193.63,Wire Transfer,2025-08-28
+15,BIL-33672,CUS-28023,Robert Taylor,robert.taylor@company.com,2025-12,480.95,Credit Card,2025-12-05
+16,BIL-78740,CUS-28023,Robert Taylor,robert.taylor@company.com,2025-11,489.16,Credit Card,2025-11-07
+17,BIL-76351,CUS-28023,Robert Taylor,robert.taylor@company.com,2025-10,425.45,Credit Card,2025-10-06
+18,BIL-81406,CUS-28023,Robert Taylor,robert.taylor@company.com,2025-09,467.6,Credit Card,2025-09-08
+19,BIL-21430,CUS-28023,Robert Taylor,robert.taylor@company.com,2025-08,471.75,Credit Card,2025-08-05
+20,BIL-49434,CUS-42578,Natalie Lozano,natalie.lozano@company.com,2025-12,1783.27,Check,2025-12-28
+21,BIL-50923,CUS-42578,Natalie Lozano,natalie.lozano@company.com,2025-11,1552.72,Check,2025-11-30
+22,BIL-90244,CUS-42578,Natalie Lozano,natalie.lozano@company.com,2025-10,1767.63,Check,2025-10-25
+23,BIL-18979,CUS-42578,Natalie Lozano,natalie.lozano@company.com,2025-09,1653.75,Check,2025-09-27
+24,BIL-53680,CUS-42578,Natalie Lozano,natalie.lozano@company.com,2025-08,1709.81,Check,2025-08-29
+25,BIL-40260,CUS-25731,Teresa Wright,teresa.wright@company.com,2025-12,1271.88,ACH,2025-12-12
+26,BIL-91232,CUS-25731,Teresa Wright,teresa.wright@company.com,2025-11,1294.29,ACH,2025-11-14
+27,BIL-99537,CUS-25731,Teresa Wright,teresa.wright@company.com,2025-10,1374.62,ACH,2025-10-10
+28,BIL-66387,CUS-25731,Teresa Wright,teresa.wright@company.com,2025-09,1382.02,ACH,2025-09-15
+29,BIL-67177,CUS-25731,Teresa Wright,teresa.wright@company.com,2025-08,1333.94,ACH,2025-08-11
+30,BIL-94521,CUS-82709,Danielle Graham,danielle.graham@company.com,2025-12,156.85,Credit Card,2025-12-03
+31,BIL-29338,CUS-82709,Danielle Graham,danielle.graham@company.com,2025-11,160.23,Credit Card,2025-11-04
+32,BIL-81912,CUS-82709,Danielle Graham,danielle.graham@company.com,2025-10,139.86,Credit Card,2025-10-02
+33,BIL-74109,CUS-82709,Danielle Graham,danielle.graham@company.com,2025-09,142.2,Credit Card,2025-09-05
+34,BIL-91687,CUS-82709,Danielle Graham,danielle.graham@company.com,2025-08,141.21,Credit Card,2025-08-04
+35,BIL-25117,CUS-89886,Jennifer Smith,jennifer.smith@company.com,2025-12,370.96,ACH,2025-12-08
+36,BIL-33257,CUS-89886,Jennifer Smith,jennifer.smith@company.com,2025-11,357.92,ACH,2025-11-09
+37,BIL-18500,CUS-89886,Jennifer Smith,jennifer.smith@company.com,2025-10,390.15,ACH,2025-10-07
+38,BIL-67059,CUS-89886,Jennifer Smith,jennifer.smith@company.com,2025-09,394.12,ACH,2025-09-10
+39,BIL-46581,CUS-89886,Jennifer Smith,jennifer.smith@company.com,2025-08,405.21,ACH,2025-08-08
+40,BIL-20302,CUS-54530,Brianna Davis,brianna.davis@company.com,2025-12,309.83,Credit Card,2025-12-16
+41,BIL-38896,CUS-54530,Brianna Davis,brianna.davis@company.com,2025-11,318.06,Credit Card,2025-11-18
+42,BIL-41668,CUS-54530,Brianna Davis,brianna.davis@company.com,2025-10,310.62,Credit Card,2025-10-19
+43,BIL-27778,CUS-54530,Brianna Davis,brianna.davis@company.com,2025-09,290.69,Credit Card,2025-09-17
+44,BIL-68993,CUS-54530,Brianna Davis,brianna.davis@company.com,2025-08,313.56,Credit Card,2025-08-16
+45,BIL-34528,CUS-66732,Edwin Hawkins,edwin.hawkins@company.com,2025-12,852.6,Wire Transfer,2025-12-30
+46,BIL-43684,CUS-66732,Edwin Hawkins,edwin.hawkins@company.com,2025-11,861.08,Wire Transfer,2025-11-29
+47,BIL-62091,CUS-66732,Edwin Hawkins,edwin.hawkins@company.com,2025-10,780.26,Wire Transfer,2025-10-31
+48,BIL-12497,CUS-66732,Edwin Hawkins,edwin.hawkins@company.com,2025-09,840.64,Wire Transfer,2025-09-30
+49,BIL-30383,CUS-66732,Edwin Hawkins,edwin.hawkins@company.com,2025-08,772.82,Wire Transfer,2025-08-30
+50,BIL-77505,CUS-46310,Barbara Gomez,barbara.gomez@company.com,2025-12,1954.34,Check,2025-12-27
+51,BIL-88162,CUS-46310,Barbara Gomez,barbara.gomez@company.com,2025-11,1893.59,Check,2025-11-28
+52,BIL-87759,CUS-46310,Barbara Gomez,barbara.gomez@company.com,2025-10,1758.93,Check,2025-10-29
+53,BIL-62388,CUS-46310,Barbara Gomez,barbara.gomez@company.com,2025-09,1695.31,Check,2025-09-26
+54,BIL-95222,CUS-46310,Barbara Gomez,barbara.gomez@company.com,2025-08,1745.35,Check,2025-08-27
+55,BIL-43927,CUS-99542,Tony Moore,tony.moore@company.com,2025-12,887.5,ACH,2025-12-11
+56,BIL-56621,CUS-99542,Tony Moore,tony.moore@company.com,2025-11,791.23,ACH,2025-11-13
+57,BIL-82642,CUS-99542,Tony Moore,tony.moore@company.com,2025-10,792.27,ACH,2025-10-12
+58,BIL-40069,CUS-99542,Tony Moore,tony.moore@company.com,2025-09,813.1,ACH,2025-09-11
+59,BIL-24468,CUS-99542,Tony Moore,tony.moore@company.com,2025-08,929.38,ACH,2025-08-14
+60,BIL-22618,CUS-58517,Regina Wilson,regina.wilson@company.com,2025-12,1885.73,Wire Transfer,2025-12-23
+61,BIL-41388,CUS-58517,Regina Wilson,regina.wilson@company.com,2025-11,1724.42,Wire Transfer,2025-11-24
+62,BIL-69371,CUS-58517,Regina Wilson,regina.wilson@company.com,2025-10,1965.82,Wire Transfer,2025-10-26
+63,BIL-71222,CUS-58517,Regina Wilson,regina.wilson@company.com,2025-09,1743.2,Wire Transfer,2025-09-24
+64,BIL-14906,CUS-41205,Michelle Brown,michelle.brown@company.com,2025-12,1271.11,Credit Card,2025-12-06
+65,BIL-56194,CUS-41205,Michelle Brown,michelle.brown@company.com,2025-11,1261.43,Credit Card,2025-11-05
+66,BIL-67456,CUS-41205,Michelle Brown,michelle.brown@company.com,2025-10,1459.1,Credit Card,2025-10-08
+67,BIL-52093,CUS-41205,Michelle Brown,michelle.brown@company.com,2025-09,1499.02,Credit Card,2025-09-06
+68,BIL-35461,CUS-48069,Jennifer Kim,jennifer.kim@company.com,2025-12,771.45,ACH,2025-12-09
+69,BIL-47311,CUS-48069,Jennifer Kim,jennifer.kim@company.com,2025-11,655.8,ACH,2025-11-10
+70,BIL-30256,CUS-48069,Jennifer Kim,jennifer.kim@company.com,2025-10,740.48,ACH,2025-10-09
+71,BIL-13429,CUS-48069,Jennifer Kim,jennifer.kim@company.com,2025-09,725.39,ACH,2025-09-12
+72,BIL-61683,CUS-65552,Sarah Cortez,sarah.cortez@company.com,2025-12,707.26,Check,2025-12-26
+73,BIL-66142,CUS-65552,Sarah Cortez,sarah.cortez@company.com,2025-11,740.54,Check,2025-11-27
+74,BIL-51484,CUS-65552,Sarah Cortez,sarah.cortez@company.com,2025-10,774.15,Check,2025-10-28
+75,BIL-54656,CUS-65552,Sarah Cortez,sarah.cortez@company.com,2025-09,701.56,Check,2025-09-25
+76,BIL-62957,CUS-87470,Benjamin Ford,benjamin.ford@company.com,2025-12,1038.58,Credit Card,2025-12-04
+77,BIL-35448,CUS-87470,Benjamin Ford,benjamin.ford@company.com,2025-11,1006.51,Credit Card,2025-11-06
+78,BIL-76610,CUS-87470,Benjamin Ford,benjamin.ford@company.com,2025-10,1076.85,Credit Card,2025-10-05
+79,BIL-35955,CUS-87470,Benjamin Ford,benjamin.ford@company.com,2025-09,1076.58,Credit Card,2025-09-07
+80,BIL-88761,CUS-47888,Lindsay Montes,lindsay.montes@company.com,2025-12,677.6,ACH,2025-12-13
+81,BIL-68120,CUS-47888,Lindsay Montes,lindsay.montes@company.com,2025-11,718.43,ACH,2025-11-15
+82,BIL-50972,CUS-47888,Lindsay Montes,lindsay.montes@company.com,2025-10,648.28,ACH,2025-10-14
+83,BIL-16191,CUS-47888,Lindsay Montes,lindsay.montes@company.com,2025-09,676.37,ACH,2025-09-16
+84,BIL-41885,CUS-40178,Jermaine Howard,jermaine.howard@company.com,2025-12,851.07,Wire Transfer,2025-12-24
+85,BIL-63164,CUS-40178,Jermaine Howard,jermaine.howard@company.com,2025-11,802.0,Wire Transfer,2025-11-26
+86,BIL-34076,CUS-40178,Jermaine Howard,jermaine.howard@company.com,2025-10,814.72,Wire Transfer,2025-10-27
+87,BIL-77203,CUS-40178,Jermaine Howard,jermaine.howard@company.com,2025-09,875.75,Wire Transfer,2025-09-28
+88,BIL-71775,CUS-66049,Michele Dawson,michele.dawson@company.com,2025-12,1701.82,Check,2025-12-31
+89,BIL-45152,CUS-66049,Michele Dawson,michele.dawson@company.com,2025-11,2015.6,Check,2025-11-29
+90,BIL-13148,CUS-66049,Michele Dawson,michele.dawson@company.com,2025-10,1836.1,Check,2025-10-30
+91,BIL-72911,CUS-66049,Michele Dawson,michele.dawson@company.com,2025-09,1876.57,Check,2025-09-29
+92,BIL-81514,CUS-90849,Kyle May,kyle.may@company.com,2025-12,893.02,Credit Card,2025-12-07
+93,BIL-31156,CUS-90849,Kyle May,kyle.may@company.com,2025-11,1019.78,Credit Card,2025-11-08
+94,BIL-90529,CUS-90849,Kyle May,kyle.may@company.com,2025-10,939.03,Credit Card,2025-10-09
+95,BIL-82260,CUS-90849,Kyle May,kyle.may@company.com,2025-09,1076.21,Credit Card,2025-09-10
+96,BIL-78598,CUS-88392,Jason Carter,jason.carter@company.com,2025-12,414.18,ACH,2025-12-10
+97,BIL-59785,CUS-88392,Jason Carter,jason.carter@company.com,2025-11,482.48,ACH,2025-11-11
+98,BIL-75495,CUS-88392,Jason Carter,jason.carter@company.com,2025-10,486.67,ACH,2025-10-13
+99,BIL-69277,CUS-88392,Jason Carter,jason.carter@company.com,2025-09,477.44,ACH,2025-09-12
