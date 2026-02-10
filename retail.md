@@ -684,11 +684,16 @@ orchestrate server start -e .env
 
 The download can take about 1 minutes. You can skip to "Code Walkthrough" if you are able to download your watsonx orchestrate locally.
 
-**Note - Additional Troubleshooting Steps for Windows User**
+---
+#### For Windows users
+> Non-windows users can skip to `step 6`.
 
-For Windows, users if you face an issue beginning with the following...
+if you face an issue beginning with the following:
+```
 "WSL command failed: ['wsl', '-d', 'ibm-watsonx-orchestrate', '-u', 'orchestrate', '--', 'docker', 'compose', '-f',...]",
-the resolution steps are below
+```
+the resolution steps are below:
+
 
 1. fix WSL DNS Resolution
 ```
@@ -716,7 +721,7 @@ nameserver 9.0.130.50
 nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
-
+---
 6. Then activate the local env in the ADK with:
 ```
 orchestrate env activate local
