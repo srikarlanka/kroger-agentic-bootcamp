@@ -22,7 +22,7 @@
     - [The Retail Market Agent](#the-retail-market-agent)
   - [Final test and Summary](#final-test-and-summary)
     - [Additional Testing](#additional-testing)
-  - [(Optional) Headless Agent](#optional-headless-agent)
+  - [(Optional) Headless Agent - Running Locally](#optional-headless-agent---running-locally)
     - [Code Walkthrough](#code-walkthrough)
       - [The local HTTP server](#the-local-http-server)
       - [Running the app](#running-the-app)
@@ -662,7 +662,7 @@ https://s3-media0.fl.yelpcdn.com/bphoto/PKhHzdYmkTr4BMbU_GzU7w/o.jpg
 Use this image to repeat the steps in the lab, compare outputs, and observe how the model performs with varying shelf layouts and product types.
 
 
-## (Optional) Headless Agent
+## (Optional) Headless Agent - Running Locally
 
 In this section, we will use the agents above in a "headless" form. That is, the agent is triggered not by a human typing into a chat window, but by an event. "Event" in this context can be represented by a number of concrete implementations: for example, receiving a message through a pub/sub system, sent by a sensor, triggered by an incoming email, triggered by a stock price dropping below or rising above a certain level - the possibilities are endless. What they all have in common is that the agent is always on, listening and waiting for the event to occur, and then acting on that event, without any human intervention.
 
