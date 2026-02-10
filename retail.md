@@ -420,6 +420,8 @@ Note how you can expand the `Show reasoning` link in the Preview window to see t
 
 We can now export the metadata for this agent into a YAML file. This allows us to easily import the same agent in any watsonx Orchestrate environment, including a SaaS instance in IBM Cloud. However, you need to enter the name of the agent, which is not what you entered into the `Name` field when creating the agent. The tool will automatically append a unique identifier to the end. To get the name, you can run `orchestrate agents list`.
 > If needed you can also run `orchestrate agents list -v` for easier copy and paste.
+> If the list of agents are too long, you can also use this command to filter based on your agent name `orchestrate agents list --verbose | grep -A 10 -B 2 "retail_market_agent_<yourinitial>"`
+
 
 ![alt text](images/image38.png)
 
@@ -682,11 +684,11 @@ orchestrate server start -e .env
 ```
 > You may have to run the above command twice!
 
-The download can take about 1 minutes. You can skip to "Code Walkthrough" if you are able to download your watsonx orchestrate locally.
+The download can take about 1 minutes. 
 
 ---
 #### For Windows users
-> Non-windows users can skip to `step 6`.
+> Non-windows users can skip to `step 1-5`.
 
 if you face an issue beginning with the following:
 ```
@@ -722,12 +724,12 @@ nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
 ---
-6. Then activate the local env in the ADK with:
+Then activate the local env in the ADK with:
 ```
 orchestrate env activate local
 ```
 
-7. Run the following commands to reimport the tools and connections.
+Run the following commands to reimport the tools and connections.
 > This is the same as the previous commands you ran throughout the lab, just in an automated bash script that first imports connections, then tools, then agents, and finally set's their credentials.
 
 ```
@@ -737,7 +739,7 @@ chmod +x ./src/set-credentials.sh
 ./src/set-credentials.sh
 ```
 
-8. To finish setting up the local version, run the following command and click manage agents:
+To finish setting up the local version, run the following command and click manage agents:
 ```
 orchestrate chat start
 ```
@@ -774,7 +776,13 @@ Every agent created in watsonx Orchestrate has an ID, which is used as an identi
 
 ![alt text](images/image46.png)
 
-We will pass this as a parameter as well, so copy it to the clipboard and from there to an environment variable for later use.
+If the list of agents are too long, you can also use this command to filter based on your agent name:
+
+`
+orchestrate agents list --verbose | grep -A 10 -B 2 "retail_market_agent_<yourinitial>"
+`
+
+We will pass this as a parameter as well, so copy it to the clipboard and from there to an environment variable for later use. 
 
 ```export AGENT_ID=725eeb8b-489a-4c42...```
 
