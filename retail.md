@@ -392,11 +392,11 @@ Note how we divided the instructions into separate sections for persona, context
 - Select Local MCP Server and click on next
   ![alt text](images/add_mcp_2.png)
 - Enter the following details for the MCP server and click on Import.
-> Server name - websearch_mcp
+> Server name: websearch_mcp
 > 
-> Description - This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
+> Description: This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
 > 
-> Install command - npx -y @guhcostan/web-search-mcp
+> Install command: npx -y @guhcostan/web-search-mcp
   ![alt text](images/mcp_details.png)
 - Once you add the MCP server you should see a tool for `websearch_mcp:search_web` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:search_web`. Select it and click on add to agent.
   ![alt text](images/add_tools_list.png)
@@ -682,7 +682,9 @@ orchestrate server start -e .env
 ```
 > You may have to run the above command twice!
 
-**Note**
+The download can take about 1 minutes. You can skip to "Code Walkthrough" if you are able to download your watsonx orchestrate locally.
+
+**Note - Additional Troubleshooting Steps for Windows User**
 
 For Windows, users if you face an issue beginning with the following...
 "WSL command failed: ['wsl', '-d', 'ibm-watsonx-orchestrate', '-u', 'orchestrate', '--', 'docker', 'compose', '-f',...]",
@@ -715,12 +717,12 @@ nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
 
-Then activate the local env in the ADK with:
+6. Then activate the local env in the ADK with:
 ```
 orchestrate env activate local
 ```
 
-Run the following commands to reimport the tools and connections.
+7. Run the following commands to reimport the tools and connections.
 > This is the same as the previous commands you ran throughout the lab, just in an automated bash script that first imports connections, then tools, then agents, and finally set's their credentials.
 
 ```
@@ -730,7 +732,7 @@ chmod +x ./src/set-credentials.sh
 ./src/set-credentials.sh
 ```
 
-To finish setting up the local version, run the following command and click manage agents:
+8. To finish setting up the local version, run the following command and click manage agents:
 ```
 orchestrate chat start
 ```
@@ -738,8 +740,8 @@ orchestrate chat start
 
 ---
 **Important**: Add the necessary agents to the `retail_market_agent`.
-
 ---
+
 
 ### Code Walkthrough
 
@@ -769,11 +771,16 @@ Every agent created in watsonx Orchestrate has an ID, which is used as an identi
 
 We will pass this as a parameter as well, so copy it to the clipboard and from there to an environment variable for later use.
 
-```export AGENT_ID=725eeb8b-489a-4c42-8a15-140a6b7bd020```
+```export AGENT_ID=725eeb8b-489a-4c42...```
 
 3. **The target folder**
 
 As mentioned above, the app will watch for the creation of new image files in a specific local folder. With this parameter, you specify which folder you would like to use. The app will not only look for image files in that folder, it will put the reults of the agent invocation into a text file in a subfolder named `output`.
+
+In your terminal, navigate to the folder where you would like to store the image and type `pwd` to get the directory path. Mac User - from your desktop, you can also right click on your folder and press "option⌥" keyboard and the "copy xxx as Pathname" option should appear. 
+
+Otherwise, you can navigate to the folder and use this command to export the pathname:
+
 ```
 export TARGET_FOLDER=$(pwd)
 ```
@@ -840,7 +847,7 @@ Remember that when we set up the agents for this use case, we assumed that the l
 Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
 ```
 
-So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interesed in here - through an HTTP GET request. The easiest way to do so is to simply run the following command in (a) a new command terminal (since it will be blocked), and (b) running the command below **in the target folder** where your images are going to be stored.
+So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interested in here - through an HTTP GET request. The easiest way to do so is to simply run the following command in (a) a new command terminal (since it will be blocked), and (b) running the command below **in the target folder** where your images are going to be stored.
 
 ```
 python -m http.server 8002
