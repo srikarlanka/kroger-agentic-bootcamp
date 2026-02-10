@@ -664,11 +664,13 @@ https://s3-media0.fl.yelpcdn.com/bphoto/PKhHzdYmkTr4BMbU_GzU7w/o.jpg
 Use this image to repeat the steps in the lab, compare outputs, and observe how the model performs with varying shelf layouts and product types.
 
 
-## (Optional) Headless Agent - Running Locally
+## (Optional) Headless Agent - Running Watsonx Orchestrate Locally
 
 In this section, we will use the agents above in a "headless" form. That is, the agent is triggered not by a human typing into a chat window, but by an event. "Event" in this context can be represented by a number of concrete implementations: for example, receiving a message through a pub/sub system, sent by a sensor, triggered by an incoming email, triggered by a stock price dropping below or rising above a certain level - the possibilities are endless. What they all have in common is that the agent is always on, listening and waiting for the event to occur, and then acting on that event, without any human intervention.
 
 The example scenario we will walk through here is one where a new photo of a product shelf is taken, stored in a folder in the cloud, and the appearance of that file will trigger the agent to download the image and create rearrangement recommendations. And to make things practical, instead of uploading the picture to a cloud store, we will show you an application that watches a file folder on the local machine, and will invoke the agent running in the ADK locally whenever a new image file appears. The result of the agent's work, i.e. recommendations for how to rearrange the product shelf, will be stored in a text file.
+
+You will also walk through now simple it is to set up your Watsonx Orchestrate locally which is useful for development purposes. 
 
 ### Initial Set up
 
@@ -688,7 +690,7 @@ The download can take about 1 minutes.
 
 ---
 #### For Windows users
-> Non-windows users can skip to `step 1-5`.
+> Non-windows users can skip `step 1-5`.
 
 if you face an issue beginning with the following:
 ```
@@ -724,7 +726,8 @@ nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
 ---
-Then activate the local env in the ADK with:
+
+Activate the local env in the ADK with:
 ```
 orchestrate env activate local
 ```
@@ -772,14 +775,22 @@ Note in the screenshot that ths file has two tokens, one for the local environme
 
 2. **The agent ID**
 
-Every agent created in watsonx Orchestrate has an ID, which is used as an identifier in the target URL of the REST API. So we need to find the ID of the `retail_market_agent` agent, which can be done by using the `orchestrate agents list --verbose` command. The command returns a detailed list of all defined agents in JSON format. One of the fields is labeled `id`, and that is the one we need.
+Every agent created in watsonx Orchestrate has an ID, which is used as an identifier in the target URL of the REST API. Double check with orchestrate envrionment is currently active. You want to make sure you're on your local env and not the wxo-kroger from earlier. 
+
+`orchestrate env list`
+
+You should see a green "active" sign next to your local env.
+
+![alt text](images/localactive.png)
+
+We need to find the ID of the `retail_market_agent` agent, which can be done by using the `orchestrate agents list --verbose` command. The command returns a detailed list of all defined agents in JSON format. One of the fields is labeled `id`, and that is the one we need.
 
 ![alt text](images/image46.png)
 
-If the list of agents are too long, you can also use this command to filter based on your agent name:
+If the list of agents are too long, you can use the same command to filter based on your agent name:
 
 `
-orchestrate agents list --verbose | grep -A 10 -B 2 "retail_market_agent_<yourinitial>"
+orchestrate agents list --verbose | grep -A 10 -B 2 "retail_market_agent"
 `
 
 We will pass this as a parameter as well, so copy it to the clipboard and from there to an environment variable for later use. 
@@ -860,7 +871,11 @@ Remember that when we set up the agents for this use case, we assumed that the l
 Please look at the image at https://i.imgur.com/qfiugNJ.jpeg. Based on market trends for the products in the image, can you make recommendations for any rearrangement of the products on the shelf?
 ```
 
-So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interested in here - through an HTTP GET request. The easiest way to do so is to simply run the following command in (a) a new command terminal (since it will be blocked), and (b) running the command below **in the target folder** where your images are going to be stored.
+So here we need to convert the filename into a URL that the agent can retrieve. For this, you need to start a local HTTP server. This will allow retrieving local files - including the image files we are interested in here - through an HTTP GET request. 
+
+To do so:
+(a) start a fresh terminal seperate from the prior terminal you've been using (since it will be blocked)
+(b) make sure to run the command below **in the target folder** where your images are going to be stored.
 
 ```
 python -m http.server 8002
@@ -913,7 +928,7 @@ The returned message is embedded into a piece of text, and then saved into the o
 
 #### Running the app
 
-It's now time to run the application and test it! You have saved the three parameters it requires as environment variables above, so you can call it right away:
+It's now time to run the application and test it! You can now switch back to the original terminal you were using and make sure localhost continues to run on a seperate terminal. You have saved the three parameters it requires as environment variables above, so you can call it right away:
 
 ```
 python ./src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_FOLDER --token $BEARER_TOKEN
@@ -921,7 +936,7 @@ python ./src/app/image_listener.py --agent_id $AGENT_ID --target_folder $TARGET_
 
 Now let's copy an image file into the target folder. You can use any of the files in the [./src/app/images/](./src/app/images/) folder for this test but we recommend to try `./images/shoes.png`. Copy an paste the file either using your File Explorer or run a `cp` command in a separate command terminal - either will do the trick.
 ```
-cp ./images/shoes.png ./
+cp ./images/coffee.png ./
 ```
 
 ![alt text](images/image48.png)
@@ -929,3 +944,9 @@ cp ./images/shoes.png ./
 Note how the program runs in an endless loop, and you can add more image files to the target folder. To stop it, simply hit ctrl-c. You can also see the file that was produced in the `output` folder.
 
 ![alt text](images/image49.png)
+
+---
+
+####Congratulations! You have now completed the Retail Lab. Give your self a pat on the back and let your lab instructor know. 
+
+---
