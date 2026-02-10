@@ -654,6 +654,13 @@ How should the products shown in this image (https://i.imgur.com/Pb2Ywxv.jpeg) b
 
 Feel free to run more experiments and explore further. You can start by testing to see how the different agents respond to different wordings of questions or by changing descriptions and instructions, to see what the impact on the solution is.
 
+We encourage you to experiment by substituting different images into the process. For example, you may use the following retail shelf image from Kroger as an alternative test input:
+
+Sample Image:
+https://s3-media0.fl.yelpcdn.com/bphoto/PKhHzdYmkTr4BMbU_GzU7w/o.jpg
+
+Use this image to repeat the steps in the lab, compare outputs, and observe how the model performs with varying shelf layouts and product types.
+
 
 ## (Optional) Headless Agent
 
