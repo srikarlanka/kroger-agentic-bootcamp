@@ -14,7 +14,7 @@ MY_APP_ID = 'salesforce_oauth2_auth_code_ibm_184bdbd3'
 
 @tool(
     expected_credentials=[
-        {"sal": MY_APP_ID, "type": ConnectionType.OAUTH2_AUTH_CODE}
+        {"app_id": MY_APP_ID, "type": ConnectionType.OAUTH2_AUTH_CODE}
     ]
 )
 def get_salesforce_cases():
@@ -183,8 +183,10 @@ def get_all_case_information(case_identifier: str):
     records = response.json().get("records", [])
 
     if not records:
-        case = records[0]
-        return case
+        return {
+            "Status": "Not Found", 
+            "Message": f"Case matching '{case_identifier}' could not be found."
+        }
 
     case = records[0]
     return case
