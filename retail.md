@@ -77,7 +77,7 @@ The code for this tool is in [this Python file](./src/tools/generate_description
 The code starts with a set of import statements. To run the code, either within watsonx Orchestrate or on the command line, you need to make sure a set of packages are installed. 
 
 #### Install the Requirements
-The [requirements.txt](./src/tools/requirements.txt) file lists all of the required packages. To run it locally, you need to run `pip install -r requirements.txt` with this file. When using this code inside a tool, we can impport this file together with the code, and the server will install the listed packages into the runtime the first time the tool is called. 
+The [requirements.txt](./src/tools/requirements.txt) file lists all of the required packages. To run it locally, you need to run `pip install –r ./src/tools/requirements.txt` with this file. When using this code inside a tool, we can impport this file together with the code, and the server will install the listed packages into the runtime the first time the tool is called. 
 
 Next you will find this line:
 ```
@@ -300,20 +300,17 @@ Each agent will be defined inside a YAML file that we can easily import into wat
 
 ## Agent naming convention
 
-To ensure that all agents each lab participant imports are identifiable, please add **"_{your_initials}"** to the end of each agent YAML file.
-
-You can find each of your three agent YAML files by navigating within your root directory → sub folder `src` → sub folder `agents` (**src/agents** is the relative path).  
-Right click on each file and select "Rename".
+To ensure that all agents each lab participant imports are identifiable, please add **"_{your_initials}"** to the name parameter in each agent YAML file.
 
 Example naming convention:
 
 Name of lab participant: **John Doe**
 
-internet_research_agent.yaml → **internet_research_agent_jd.yaml**  
-market_analyst_agent.yaml → **market_analyst_agent_jd.yaml**  
-retail_market_agent.yaml → **retail_market_agent_jd.yaml**
+internet_research_agent → **internet_research_agent_jd**  
+market_analyst_agent → **market_analyst_agent_jd**  
+retail_market_agent → **retail_market_agent_jd**
 
-Within these three files, you also have to the change "name" key value to include your initial as well. Refer to attached screenshot below:
+Within these three files, you have to the change "name" key value to include your initials. Refer to attached screenshot below:
 
 ![alt text](./images/agent_naming.png)
 
@@ -395,7 +392,7 @@ Note how we divided the instructions into separate sections for persona, context
 - Select Local MCP Server and click on next
   ![alt text](images/add_mcp_2.png)
 - Enter the following details for the MCP server and click on Import.
-> Server name: websearch_mcp_{your_initials}
+> Server name: websearch_mcp
 > 
 > Description: This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
 > 
@@ -433,7 +430,7 @@ We can now export the metadata for this agent into a YAML file. This allows us t
 In the example above, the name of the agent is `internet_research_agent_9292aQ`.
 To export, simply enter the following command on the command line (replace the name of the agent after the '-n' parameter with the name of your agent):
 ```
-orchestrate agents export -n internet_research_agent_{your_initials}_9292aQ -k native --agent-only -o internet_research_agent_{your_initials}.yaml
+orchestrate agents export -n internet_research_agent_{your_initials}_9292aQ -k native --agent-only -o internet_research_agent.yaml
 ```
 Feel free to study the content of the created YAML file. It has all the same content as what we typed into the Agent Builder UI before. Another interesting detail is the `llm` section. It shows which model is being used by this agent. If the agent you are creating does not perform to your satisfaction, you may want to try a different model.
 
@@ -519,7 +516,7 @@ Note that the `instructions` section has a similar structure to the one in the i
 
 We can import the agent into our watsonx Orchestrate instance by entering the following command:
 ```
-orchestrate agents import -f ./src/agents/market_analyst_agent_{your_initials}.yaml
+orchestrate agents import -f ./src/agents/market_analyst_agent.yaml
 ```
 
 Once imported, we can see and test the agent in the UI. Go back to your browser and click on the `Manage agents` link.
@@ -563,7 +560,7 @@ Note how the 'Key Instruction' section contains details about how to use other a
 
 We import this agent just like the previous one:
 ```
-orchestrate agents import -f ./src/agents/retail_market_agent_{your_initials}.yaml
+orchestrate agents import -f ./src/agents/retail_market_agent.yaml
 ```
 
 Back in the `Manage agents` view in the UI, you can reload the page and see the new agent listed next to the other ones.
