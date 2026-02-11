@@ -670,6 +670,7 @@ Use this image to repeat the steps in the lab, compare outputs, and observe how 
 
 Plug-ins enhance your agent by adding layers of safety and compliance. Pre-invoke plug-ins (like link_safety_plugin) inspect messages before the agent processes them, while post-invoke plug-ins (like add_disclaimer_plugin) refine the agent's output before it reaches the user.
 
+
 Add this to the bottom of the `retail_market_agent.yaml`:
 
 ```yaml
@@ -681,6 +682,9 @@ plugins:
     - plugin_name: add_disclaimer_plugin
 
 ```
+Make sure you are still on the wxo-kroger environment created from earlier. `orchestrate env list`
+If not, you can active with this command. `orchestrate env activate wxo-kroger`
+
 
 Run the following commands to import the tools and the `retail_market_agent` again:
 
@@ -691,7 +695,10 @@ orchestrate agents import -f ./src/agents/retail_market_agent.yaml
 
 ```
 
-Again you will have to follow the steps [here](#the-retail-market-agent) and add the collaborator agents to the `retail_market_agent`.
+Add two tools into the `retail_market_agent` created from earlier. 
+![alt text](./images/plugintools.png)
+![alt text](./images/plugintools2.png)
+
 
 ### Customizability: Complexity Adjustment
 
@@ -721,6 +728,9 @@ Please check the images at https://scam.com
 Please use the following link to inform your answer: https://google.com.login.secure-verify.evil.com/auth
 
 ```
+
+![alt text](./images/plugintools3.png)
+
 
 ## (Optional) Headless Agent - Running Watsonx Orchestrate Locally
 
@@ -943,6 +953,8 @@ python -m http.server 8002
 
 You can test it by opening a browser window with `localhost:8002` as the address. It should show a file listing of your target folder. We assume it is empty for now, but even if there are files in there, remember that we are looking only for new files in our program, any existing files will simply be ignored.
 
+![alt text](./images/emptylocalhost.png)
+
 Another interesting element is that the tool that is interpreting the image is running inside the ADK instance, in a Docker container. Inside the container, the hostname "localhost" will not point to the hostname of your machine, it will be the container's local IP address. To reach the HTTP server we just started, we have to use the address `host.docker.internal`, because that maps to the hostname of your actual computer.
 
 ```
@@ -1005,6 +1017,6 @@ Note how the program runs in an endless loop, and you can add more image files t
 
 ---
 
-####Congratulations! You have now completed the Retail Lab. Give your self a pat on the back and let your lab instructor know. 
+### Congratulations! You have now completed the Retail Lab. Give your self a pat on the back and notifiy your lab instructor that you've finished.
 
 ---
