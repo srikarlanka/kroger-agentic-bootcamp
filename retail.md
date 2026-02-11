@@ -1015,6 +1015,14 @@ Note how the program runs in an endless loop, and you can add more image files t
 
 ![alt text](images/image49.png)
 
+#### Potential Troubleshooting for Headless Agent 
+
+If you're seeing an error while testing "Error during POST request: 'choices' ", there are some factors to consider to help roubleshoot.
+
+- Make sure localhost:8002 is running
+- Make sure you have the correct values stored in the session variables (AGENT_ID, TARGET_FOLDER, BEARER_TOKEN)
+- Make sure your orchestrate local env is activated
+
 ---
 
 ### Congratulations! You have now completed the Retail Lab. Give your self a pat on the back and notifiy your lab instructor that you've finished.
