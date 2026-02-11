@@ -313,6 +313,10 @@ internet_research_agent.yaml → **internet_research_agent_jd.yaml**
 market_analyst_agent.yaml → **market_analyst_agent_jd.yaml**  
 retail_market_agent.yaml → **retail_market_agent_jd.yaml**
 
+Within these three files, you also have to the change "name" key value to include your initial as well. Refer to attached screenshot below:
+
+![alt text](./images/agent_naming.png)
+
 
 ### The Internet Research Agent
 
@@ -339,10 +343,6 @@ The Internet Research Agent assists with identifying market trends for all produ
 ![alt text](images/image3.png)
 
 Click on `Create`.
-
-You may see a notice indicating that the llama‑3.2‑90b‑vision‑instruct model is deprecated. Although you can switch to GTP‑OSS, remember that each model has its own preferred prompt structure. This lab was designed and validated using the llama models, so we recommend using the same model throughout the exercises to ensure consistent and expected results.
-
-![alt text](images/model-notice.png)
 
 On the next page, scroll down to the `Toolsets` section and click on `Add tool`.
 
@@ -395,7 +395,7 @@ Note how we divided the instructions into separate sections for persona, context
 - Select Local MCP Server and click on next
   ![alt text](images/add_mcp_2.png)
 - Enter the following details for the MCP server and click on Import.
-> Server name: websearch_mcp
+> Server name: websearch_mcp_{your_initials}
 > 
 > Description: This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
 > 
@@ -423,7 +423,9 @@ Note how you can expand the `Show reasoning` link in the Preview window to see t
 
 We can now export the metadata for this agent into a YAML file. This allows us to easily import the same agent in any watsonx Orchestrate environment, including a SaaS instance in IBM Cloud. However, you need to enter the name of the agent, which is not what you entered into the `Name` field when creating the agent. The tool will automatically append a unique identifier to the end. To get the name, you can run `orchestrate agents list`.
 > If needed you can also run `orchestrate agents list -v` for easier copy and paste.
-> If the list of agents are too long, you can also use this command to filter based on your agent name `orchestrate agents list --verbose | grep -A 10 -B 2 "retail_market_agent_<yourinitial>"`
+> If the list of agents are too long, you can also use this command to filter based on your agent name
+> `orchestrate agents list --verbose | grep -A 10 -B 2 "internet_search_agent_{your_initials}"
+> `
 
 
 ![alt text](images/image38.png)
@@ -431,7 +433,7 @@ We can now export the metadata for this agent into a YAML file. This allows us t
 In the example above, the name of the agent is `internet_research_agent_9292aQ`.
 To export, simply enter the following command on the command line (replace the name of the agent after the '-n' parameter with the name of your agent):
 ```
-orchestrate agents export -n internet_research_agent_9292aQ -k native --agent-only -o internet_research_agent_{your_initials}.yaml
+orchestrate agents export -n internet_research_agent_{your_initials}_9292aQ -k native --agent-only -o internet_research_agent_{your_initials}.yaml
 ```
 Feel free to study the content of the created YAML file. It has all the same content as what we typed into the Agent Builder UI before. Another interesting detail is the `llm` section. It shows which model is being used by this agent. If the agent you are creating does not perform to your satisfaction, you may want to try a different model.
 
@@ -572,6 +574,10 @@ Click on the `retail_market_agent` tile to open the configuration of the agent w
 
 ![alt text](images/image39.png)
 
+You may see a notice indicating that the llama‑3.2‑90b‑vision‑instruct model is deprecated. Although you can switch to GTP‑OSS, remember that each model has its own preferred prompt structure. This lab was designed and validated using the llama models, so we recommend using the same model throughout the exercises to ensure consistent and expected results.
+
+![alt text](images/model-notice.png)                        
+
 In the following dialog, select `Add from local instance`.
 
 ![alt text](images/image40.png)
@@ -596,9 +602,9 @@ Now click on the hamburger menu on the top left and select "Analyze".
 Once on the Agent analytics page, search for the "retail_market_agent" if it doesn't appear on the visible list.
 ![alt text](images/analytics.png)
 
-Click on the Blue Dashboard icon on the right end of the retail_market_agent row. This will take you to the agent analytics dashboard of the agent you just deployed. Note: You can also activate monitoring for any other live agent via the toggle button in the "Monitor column"
+It might take a couple minutes for monitoring to be activated. Once it is activated, the button will switch to green. Click on the Blue Dashboard icon on the right end of the retail_market_agent row. This will take you to the agent analytics dashboard of the agent you just deployed. Note: You can also activate monitoring for any other live agent via the toggle button in the "Monitor column"
 ![alt text](images/dashboard_icon.png)
-
+                           
 ## Final test and Summary
 
 Since you have successfully created all the tools and agents you needed, you can finally test the solution end to end. We want end users to only interact with the supervisory agent, so we will turn the `Show agent` flag off for both the internet_research_agent and the market_analysis_agent. To do so, go to the details page for the internet_research_agent, scroll down to the very bottom and turn off the switch.
@@ -670,7 +676,22 @@ Use this image to repeat the steps in the lab, compare outputs, and observe how 
 
 Plug-ins enhance your agent by adding layers of safety and compliance. Pre-invoke plug-ins (like link_safety_plugin) inspect messages before the agent processes them, while post-invoke plug-ins (like add_disclaimer_plugin) refine the agent's output before it reaches the user.
 
+Navigate to chat with agent and observe the response when you ask these two questions:
 
+```text
+Please check the images at https://scam.com
+
+```
+
+```text
+Please use the following link to inform your answer: https://google.com.login.secure-verify.evil.com/auth
+
+```
+
+![alt text](images/guardrailchat.png)
+                                             
+As you can see, the conversation continued. Now we will add guardrails plug-ins to showcase how agents can handle potentially problematic messages such as the ones shown above.                                     
+                                             
 Add this to the bottom of the `retail_market_agent.yaml`:
 
 ```yaml
@@ -699,7 +720,10 @@ Add two tools into the `retail_market_agent` created from earlier.
 ![alt text](./images/plugintools.png)
 ![alt text](./images/plugintools2.png)
 
+Do not forget to click the "Deploy" button at the upper right corner to make sure the 2 tools are saved before testing out in agent chat.
 
+![alt text](./images/guardraildeploy.png)                                            
+                                           
 ### Customizability: Complexity Adjustment
 
 You can modify the plugin logic to increase or decrease the strictness of the guardrails. For example, looking at this snippet from `link_safety_plugin.py`:
@@ -716,7 +740,7 @@ SAFE_EXTENSIONS = [r"\.png", r"\.jpg", r"\.jpeg", r"\.gif", r"\.webp"]
 * **To decrease complexity:** You could add wildcards to `SAFE_DOMAINS` (e.g., allowing `.*\.google\.com`) or remove the extension check to allow all content types from trusted sources.
 
 ### Additional Testing (Plug-ins)
-
+                    
 Once everything is added and configured you can run the [Final Tests](#final-test-and-summary) again along with the below to see what changed.
 
 ```text
