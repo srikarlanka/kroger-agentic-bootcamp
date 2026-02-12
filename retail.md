@@ -396,7 +396,7 @@ Note how we divided the instructions into separate sections for persona, context
 > 
 > Description: This mcp server searches the web with duckduckgo, specifically searching the web for recalls of products.
 > 
-> Install command: npx -y @guhcostan/web-search-mcp{your_initials}
+> Install command: npx -y @guhcostan/web-search-mcp
   ![alt text](images/mcp_details.png)
 - Once you add the MCP server you should see a tool for `websearch_mcp:search_web` select and click on add to Agent. If you do not see it directly, click on `Add Tool` again, click on `Local Instance` and search for `websearch_mcp:search_web`. Select it and click on add to agent.
   ![alt text](images/add_tools_list.png)
